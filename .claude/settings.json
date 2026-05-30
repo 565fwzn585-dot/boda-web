@@ -1,0 +1,21 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd /Users/edupratsdearquer/boda-web/boda-web && if ! git diff --quiet || ! git diff --staged --quiet || [ -n \"$(git ls-files --others --exclude-standard)\" ]; then git add -A && git commit -m \"Actualización automática desde Claude Code\" && git push origin main && echo '{\"systemMessage\": \"✅ Cambios publicados en queraltedu.com\"}'; else echo '{\"systemMessage\": \"ℹ️ Sin cambios para publicar en queraltedu.com\"}'; fi",
+            "timeout": 60,
+            "statusMessage": "Publicando cambios en queraltedu.com..."
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git *)"
+    ]
+  }
+}

@@ -8,7 +8,7 @@
     <!-- Fuentes elegantes de Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 
     <style>
         /* ── Reset ── */
@@ -16,11 +16,13 @@
 
         /* ── Paleta de colores verde pastel ── */
         :root {
+            --titulo:          'Marcellus', serif;
             --verde-pastel:    #b5ceb2;
             --verde-claro:     #d4e8d1;
             --verde-muy-claro: #eef6ec;
             --verde-sage:      #7a9f76;
             --verde-oscuro:    #4e7349;
+            --terracota:       #cf8a5a;
             --crema:           #faf8f5;
             --blanco:          #ffffff;
             --texto:           #2c3e2d;
@@ -57,10 +59,25 @@
             transition: box-shadow 0.3s;
         }
         nav .logo {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.3rem;
-            letter-spacing: 3px;
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            font-family: var(--titulo);
             color: var(--texto);
+            text-decoration: none;
+        }
+        nav .logo img {
+            height: 42px;
+            width: auto;
+            display: block;
+        }
+        nav .logo .logo-fecha {
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            color: var(--texto-suave);
+            text-transform: uppercase;
+            padding-left: 0.85rem;
+            border-left: 1px solid var(--borde);
         }
         nav ul { list-style: none; display: flex; gap: 2rem; }
         nav ul a {
@@ -77,72 +94,98 @@
            HERO
         ══════════════════════════════ */
         #hero {
-            min-height: 100vh;
+            min-height: 78vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-end;
             text-align: center;
-            padding: 7rem 2rem 4rem;
-            background: linear-gradient(145deg, var(--verde-muy-claro) 0%, var(--crema) 55%, var(--verde-claro) 100%);
+            padding: 8rem 2rem 4.5rem;
             position: relative;
             overflow: hidden;
+            background: var(--crema);
         }
-        #hero::before {
+        /* Foto de fondo */
+        #hero .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('fotos/hero-pareja.jpg');
+            background-size: cover;
+            background-position: center 52%;
+            z-index: 0;
+        }
+        /* Capas que funden la foto con la paleta de la web */
+        #hero .hero-bg::after {
             content: '';
             position: absolute;
-            width: 650px; height: 650px;
-            background: var(--verde-pastel);
-            border-radius: 50%;
-            top: -220px; right: -200px;
-            opacity: 0.18;
+            inset: 0;
+            background:
+                /* tinte sage muy leve para hermanarla con la web */
+                linear-gradient(180deg, rgba(78,115,73,0.14), rgba(78,115,73,0.10)),
+                /* oscurecido suave SOLO abajo, para legibilidad del texto */
+                linear-gradient(180deg, rgba(24,32,22,0) 48%, rgba(24,32,22,0.38) 88%, rgba(24,32,22,0.45) 100%),
+                /* fundido inferior fino hacia el crema de la página */
+                linear-gradient(180deg, rgba(250,248,245,0) 90%, var(--crema) 100%);
         }
-        #hero::after {
-            content: '';
-            position: absolute;
-            width: 450px; height: 450px;
-            background: var(--verde-sage);
-            border-radius: 50%;
-            bottom: -180px; left: -120px;
-            opacity: 0.12;
+        #hero .hero-inner {
+            position: relative;
+            z-index: 2;
         }
 
-        .hero-tag {
+        h1 {
+            font-family: var(--titulo);
+            font-size: clamp(2.1rem, 8.5vw, 7rem);
+            font-weight: 300;
+            line-height: 1.05;
+            color: #fbf8f2;
+            letter-spacing: 2px;
+            margin-bottom: 0.9rem;
+            white-space: nowrap;
+            text-shadow: 0 2px 28px rgba(20,28,18,0.45);
+        }
+        h1 .amp {
+            font-style: normal;
+            font-size: 0.62em;
+            font-weight: 400;
+            color: rgba(251,248,242,0.78);
+            vertical-align: 0.06em;
+            margin: 0 0.06em;
+        }
+        .hero-fecha {
+            font-family: var(--titulo);
+            font-size: 1.3rem;
+            letter-spacing: 7px;
+            color: rgba(251,248,242,0.9);
+            text-transform: uppercase;
+            text-shadow: 0 1px 16px rgba(20,28,18,0.5);
+        }
+
+        /* Cuenta atrás */
+        #contador {
+            text-align: center;
+            padding: 5.5rem 2rem;
+            background: linear-gradient(160deg, var(--verde-muy-claro) 0%, var(--crema) 100%);
+        }
+        #contador .contador-tag {
             font-size: 0.72rem;
             letter-spacing: 5px;
             text-transform: uppercase;
             color: var(--verde-sage);
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.7rem;
         }
-        h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(3.5rem, 9vw, 7.5rem);
+        #contador h2 {
+            font-family: var(--titulo);
             font-weight: 300;
-            line-height: 1.05;
+            font-size: clamp(1.9rem, 4vw, 2.8rem);
             color: var(--texto);
-            letter-spacing: 2px;
-            margin-bottom: 0.6rem;
+            margin-bottom: 2.4rem;
         }
-        h1 .amp {
-            font-style: italic;
-            color: var(--verde-oscuro);
-        }
-        .hero-fecha {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.25rem;
-            letter-spacing: 7px;
-            color: var(--texto-suave);
-            text-transform: uppercase;
-            margin-bottom: 3rem;
-        }
-
-        /* Cuenta atrás */
+        #contador h2 em { font-style: italic; color: var(--verde-oscuro); }
         .countdown {
             display: flex;
             gap: 1.5rem;
             flex-wrap: wrap;
             justify-content: center;
-            margin-bottom: 3.5rem;
         }
         .cd-item {
             display: flex;
@@ -156,7 +199,7 @@
             backdrop-filter: blur(6px);
         }
         .cd-num {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: var(--titulo);
             font-size: 3rem;
             font-weight: 300;
             line-height: 1;
@@ -199,7 +242,7 @@
             margin-bottom: 0.8rem;
         }
         h2 {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: var(--titulo);
             font-size: clamp(2rem, 5vw, 3.5rem);
             font-weight: 300;
             color: var(--texto);
@@ -247,7 +290,7 @@
             color: var(--texto-medio);
         }
         .historia-cita {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: var(--titulo);
             font-size: 1.25rem;
             font-style: italic;
             color: var(--verde-oscuro);
@@ -258,67 +301,151 @@
            EVENTO (dónde y cuándo)
         ══════════════════════════════ */
         #evento { background: var(--verde-muy-claro); }
+        #evento .container { position: relative; }
+        .evento-titulo { font-style: italic; }
 
         .evento-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+            gap: 2.2rem;
             margin-top: 3rem;
+            align-items: start;
         }
-        .evento-card {
+        .lugar-card {
+            position: relative;
             background: var(--blanco);
-            border-radius: 14px;
-            padding: 2.5rem;
+            border-radius: 16px;
+            padding: 2.4rem 2.2rem 2.6rem;
             box-shadow: var(--sombra);
-            border: 1px solid var(--borde);
+            overflow: hidden;
             transition: transform 0.3s, box-shadow 0.3s;
         }
-        .evento-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 40px rgba(78, 115, 73, 0.15);
+        .lugar-card::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 4px;
+            background: linear-gradient(var(--verde-sage), var(--terracota));
         }
-        .evento-icon { font-size: 2rem; margin-bottom: 1rem; }
-        .evento-tipo {
-            display: block;
-            font-size: 0.68rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--verde-sage);
-            margin-bottom: 0.5rem;
+        .lugar-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 42px rgba(78, 115, 73, 0.15);
         }
-        .evento-nombre {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.55rem;
-            font-weight: 400;
-            color: var(--texto);
-            line-height: 1.2;
-            margin-bottom: 0.4rem;
-        }
-        .evento-hora {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.9rem;
-            color: var(--verde-oscuro);
-            margin-bottom: 1rem;
-        }
-        .evento-dir {
-            font-size: 0.9rem;
-            color: var(--texto-suave);
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-        .btn-mapa {
+        .lugar-badge {
             display: inline-block;
-            text-decoration: none;
             background: var(--verde-claro);
             color: var(--verde-oscuro);
-            padding: 0.6rem 1.4rem;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
+            font-size: 0.64rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
             font-weight: 500;
-            transition: background 0.3s, transform 0.2s;
+            padding: 0.4rem 0.95rem;
+            border-radius: 30px;
+            margin-bottom: 1.2rem;
         }
-        .btn-mapa:hover { background: var(--verde-pastel); transform: translateY(-1px); }
+        .lugar-nombre {
+            font-family: var(--titulo);
+            font-style: italic;
+            font-size: 1.65rem;
+            font-weight: 400;
+            line-height: 1.25;
+            color: var(--texto);
+            margin-bottom: 1.3rem;
+            text-wrap: balance;
+        }
+        .lugar-foto {
+            margin: 0.2rem 0 1.5rem;
+        }
+        .lugar-foto img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .lugar-hora {
+            font-family: var(--titulo);
+            color: var(--terracota);
+            font-size: 1rem;
+            letter-spacing: 3px;
+            margin-bottom: 0.9rem;
+        }
+        .lugar-desc {
+            font-size: 0.98rem;
+            color: var(--texto-medio);
+            line-height: 1.75;
+            margin-bottom: 1.7rem;
+        }
+        .lugar-divider {
+            height: 1px;
+            background: var(--borde);
+            margin-bottom: 1.3rem;
+        }
+        .lugar-dir {
+            font-size: 0.92rem;
+            color: var(--texto-suave);
+            line-height: 1.65;
+            margin-bottom: 1.1rem;
+        }
+        .lugar-mapa {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--verde-oscuro);
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .lugar-mapa svg { width: 14px; height: 14px; flex-shrink: 0; }
+        .lugar-mapa:hover { color: var(--verde-sage); }
+
+        /* ── Ruta del coche entre los dos lugares ── */
+        .ruta {
+            position: relative;
+            height: 96px;
+            margin-top: 2.4rem;
+            overflow: hidden;
+        }
+        .ruta .road-line {
+            position: absolute;
+            left: 6px; right: 6px;
+            bottom: 30px;
+            border-top: 3px dashed var(--verde-pastel);
+            opacity: 0.85;
+        }
+        .ruta .road-line::before,
+        .ruta .road-line::after {
+            content: '';
+            position: absolute;
+            top: -7px;
+            width: 11px; height: 11px;
+            border-radius: 50%;
+            background: var(--verde-sage);
+            box-shadow: 0 0 0 4px var(--verde-muy-claro);
+        }
+        .ruta .road-line::before { left: -2px; }
+        .ruta .road-line::after  { right: -2px; background: var(--terracota); }
+        .ruta .coche {
+            position: absolute;
+            bottom: 22px;
+            left: -150px;
+            width: 116px;
+            height: auto;
+            filter: drop-shadow(0 6px 5px rgba(40, 50, 35, 0.18));
+            animation: conducir 8.5s linear infinite, bache 1.2s ease-in-out infinite;
+        }
+        @keyframes conducir {
+            0%   { left: -150px; }
+            100% { left: 100%; }
+        }
+        @keyframes bache {
+            0%, 100% { transform: translateY(0); }
+            50%      { transform: translateY(-3px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .ruta .coche { animation: none; left: 42%; }
+        }
 
         /* ══════════════════════════════
            PROGRAMA
@@ -345,7 +472,7 @@
         }
         .prog-hora {
             min-width: 50px;
-            font-family: 'Cormorant Garamond', serif;
+            font-family: var(--titulo);
             font-size: 1.05rem;
             color: var(--verde-oscuro);
             text-align: right;
@@ -485,7 +612,7 @@
             padding: 3.5rem 2rem;
         }
         .footer-names {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: var(--titulo);
             font-size: 2.8rem;
             font-weight: 300;
             letter-spacing: 4px;
@@ -536,6 +663,9 @@
             .countdown { gap: 0.8rem; }
             .cd-item { padding: 1rem 1.2rem; min-width: 76px; }
             .cd-num { font-size: 2.4rem; }
+
+            #hero { min-height: 68vh; padding: 7rem 1.2rem 3.5rem; }
+            #hero .hero-bg { background-position: center 56%; }
         }
     </style>
 </head>
@@ -543,7 +673,10 @@
 
 <!-- ════════════════ NAVEGACIÓN ════════════════ -->
 <nav id="navbar">
-    <div class="logo">Q &amp; E · 11·10·2026</div>
+    <a class="logo" href="#hero" aria-label="Queralt &amp; Edu — inicio">
+        <img src="logo-qe.png" alt="Queralt &amp; Edu">
+        <span class="logo-fecha">11·10·2026</span>
+    </a>
     <ul>
         <li><a href="#historia">Nosotros</a></li>
         <li><a href="#evento">El día</a></li>
@@ -555,30 +688,11 @@
 
 <!-- ════════════════ HERO ════════════════ -->
 <section id="hero">
-    <p class="hero-tag">Nos casamos</p>
-    <h1>Queralt <span class="amp">&amp;</span><br>Edu</h1>
-    <p class="hero-fecha">11 · Octubre · 2026</p>
-
-    <div class="countdown">
-        <div class="cd-item">
-            <span class="cd-num" id="dias">--</span>
-            <span class="cd-lbl">Días</span>
-        </div>
-        <div class="cd-item">
-            <span class="cd-num" id="horas">--</span>
-            <span class="cd-lbl">Horas</span>
-        </div>
-        <div class="cd-item">
-            <span class="cd-num" id="minutos">--</span>
-            <span class="cd-lbl">Minutos</span>
-        </div>
-        <div class="cd-item">
-            <span class="cd-num" id="segundos">--</span>
-            <span class="cd-lbl">Segundos</span>
-        </div>
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+        <h1>Queralt <span class="amp">&amp;</span> Edu</h1>
+        <p class="hero-fecha">11 · Octubre · 2026</p>
     </div>
-
-    <p class="scroll-hint">↓ descubrir</p>
 </section>
 
 <!-- ════════════════ HISTORIA ════════════════ -->
@@ -611,45 +725,76 @@
     </div>
 </section>
 
+<!-- ════════════════ CUENTA ATRÁS ════════════════ -->
+<section id="contador">
+    <p class="contador-tag">La cuenta atrás</p>
+    <h2>Cada día más cerca del <em>sí, quiero</em></h2>
+    <div class="countdown">
+        <div class="cd-item">
+            <span class="cd-num" id="dias">--</span>
+            <span class="cd-lbl">Días</span>
+        </div>
+        <div class="cd-item">
+            <span class="cd-num" id="horas">--</span>
+            <span class="cd-lbl">Horas</span>
+        </div>
+        <div class="cd-item">
+            <span class="cd-num" id="minutos">--</span>
+            <span class="cd-lbl">Minutos</span>
+        </div>
+        <div class="cd-item">
+            <span class="cd-num" id="segundos">--</span>
+            <span class="cd-lbl">Segundos</span>
+        </div>
+    </div>
+</section>
+
 <!-- ════════════════ EVENTO ════════════════ -->
 <section id="evento">
     <div class="container">
         <div style="text-align:center">
-            <span class="section-tag">Dónde y cuándo</span>
-            <h2>El gran <em>día</em></h2>
+            <h2 class="evento-titulo">Dónde y cuándo</h2>
             <div class="divider"><span>✦</span></div>
         </div>
 
         <div class="evento-grid">
-            <div class="evento-card">
-                <div class="evento-icon">⛪</div>
-                <span class="evento-tipo">Ceremonia</span>
-                <div class="evento-nombre">Santuari de la Misericòrdia</div>
-                <div class="evento-hora">12:30 h</div>
-                <p class="evento-dir">
-                    Canet de Mar, Barcelona<br>
-                    El lugar donde todo empieza
-                </p>
+            <div class="lugar-card">
+                <span class="lugar-badge">Ceremonia</span>
+                <div class="lugar-nombre">Santuari Mare de Déu de la Misericòrdia</div>
+                <div class="lugar-foto">
+                    <img src="fotos/lugar-ceremonia.png" alt="Santuari Mare de Déu de la Misericòrdia">
+                </div>
+                <div class="lugar-hora">12:30 H</div>
+                <p class="lugar-desc">El santuario de la patrona del Maresme con una fachada al estilo Shrek y mucha facilidad para aparcar.</p>
+                <div class="lugar-divider"></div>
+                <p class="lugar-dir">Santuari de la Misericòrdia<br>Canet de Mar, Barcelona</p>
                 <a href="https://maps.google.com/?q=Santuari+Misericordia+Canet+de+Mar"
-                   target="_blank" rel="noopener" class="btn-mapa">
-                    📍 Cómo llegar
+                   target="_blank" rel="noopener" class="lugar-mapa">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    Ver en el mapa
                 </a>
             </div>
 
-            <div class="evento-card">
-                <div class="evento-icon">🥂</div>
-                <span class="evento-tipo">Celebración</span>
-                <div class="evento-nombre">Restaurant El Serrat de l'Ametlla</div>
-                <div class="evento-hora">~14:00 h</div>
-                <p class="evento-dir">
-                    Ametlla del Vallès, Barcelona<br>
-                    Donde lo celebraremos juntos
-                </p>
+            <div class="lugar-card">
+                <span class="lugar-badge">Convite</span>
+                <div class="lugar-nombre">Restaurant El Serrat de l'Ametlla</div>
+                <div class="lugar-foto">
+                    <img src="fotos/lugar-convite.png" alt="Restaurant El Serrat de l'Ametlla">
+                </div>
+                <p class="lugar-desc">Coronando en lo alto del Vallès, una masia con vistas increíbles. Trae chaquetilla para la noche.</p>
+                <div class="lugar-divider"></div>
+                <p class="lugar-dir">Restaurant El Serrat de l'Ametlla<br>L'Ametlla del Vallès, Barcelona</p>
                 <a href="https://maps.google.com/?q=Restaurant+El+Serrat+Ametlla+del+Valles"
-                   target="_blank" rel="noopener" class="btn-mapa">
-                    📍 Cómo llegar
+                   target="_blank" rel="noopener" class="lugar-mapa">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    Ver en el mapa
                 </a>
             </div>
+        </div>
+
+        <div class="ruta" aria-hidden="true">
+            <div class="road-line"></div>
+            <img class="coche" src="fotos/coche.png" alt="">
         </div>
     </div>
 </section>
@@ -841,7 +986,7 @@
 
             <div id="success-msg">
                 <p style="font-size:2rem; margin-bottom:0.6rem">🥂</p>
-                <p style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; color:var(--verde-oscuro); margin-bottom:0.5rem">
+                <p style="font-family:var(--titulo); font-size:1.6rem; color:var(--verde-oscuro); margin-bottom:0.5rem">
                     ¡Muchas gracias!
                 </p>
                 <p>Hemos recibido tu confirmación.<br>¡Nos vemos el 11 de octubre!</p>
@@ -868,7 +1013,7 @@
 
         if (diff <= 0) {
             document.querySelector('.countdown').innerHTML =
-                '<p style="font-family:\'Cormorant Garamond\',serif;font-size:2.2rem;color:var(--verde-oscuro)">¡Hoy es el gran día! 🎉</p>';
+                '<p style="font-family:var(--titulo);font-size:2.2rem;color:var(--verde-oscuro)">¡Hoy es el gran día! 🎉</p>';
             return;
         }
 
