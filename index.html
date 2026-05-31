@@ -548,6 +548,25 @@
         }
         .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
         .form-row   { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .radio-group { display: flex; flex-direction: column; gap: 0.6rem; margin-top: 0.3rem; }
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--borde);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+            font-size: 0.95rem;
+            text-transform: none;
+            letter-spacing: 0;
+            color: var(--texto);
+            font-weight: 300;
+        }
+        .radio-label:hover { background: var(--verde-muy-claro); border-color: var(--verde-pastel); }
+        .radio-label input[type="radio"] { accent-color: var(--verde-oscuro); width: 16px; height: 16px; flex-shrink: 0; }
+        .radio-label:has(input:checked) { background: var(--verde-muy-claro); border-color: var(--verde-sage); }
 
         label {
             font-size: 0.72rem;
@@ -914,75 +933,72 @@
             <h2>¿Venís a <em>celebrar</em><br>con nosotros?</h2>
             <div class="divider"><span>✦</span></div>
             <p>
-                Os pedimos que confirmáis vuestra asistencia antes del
-                <strong>31 de agosto de 2026</strong>.
+                Rellenar un formulario por persona.<br>
+                Os pedimos que confirmáis antes del <strong>31 de agosto de 2026</strong>.
                 ¡Nos hará muchísima ilusión contar con vosotros!
             </p>
 
-            <!--
-                ✏️ INSTRUCCIONES FORMSPREE (gratis):
-                1. Ve a https://formspree.io y crea una cuenta gratuita
-                2. Crea un nuevo formulario
-                3. Copia tu ID (algo como "xrgvkpzd")
-                4. Reemplaza "TU_ID_AQUI" en la línea de abajo
-                   Ejemplo: action="https://formspree.io/f/xrgvkpzd"
-            -->
-            <form
-                id="rsvp-form"
-                action="https://formspree.io/f/TU_ID_AQUI"
-                method="POST">
+            <form id="rsvp-form">
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="nombre">Nombre *</label>
-                        <input type="text" id="nombre" name="nombre"
-                               placeholder="Tu nombre" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="apellidos">Apellidos *</label>
-                        <input type="text" id="apellidos" name="apellidos"
-                               placeholder="Tus apellidos" required>
+                <div class="form-group">
+                    <label for="nombre">Nombre completo *</label>
+                    <input type="text" id="nombre" name="entry.1518158490"
+                           placeholder="Tu nombre y apellidos" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" id="telefono" name="entry.114387047"
+                           placeholder="Tu número de teléfono">
+                </div>
+
+                <div class="form-group">
+                    <label>Confirmar asistencia *</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.260951586" value="Sí, a todo!" required>
+                            <span>✅ Sí, a todo!</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.260951586" value="Solo iglesia">
+                            <span>⛪️ Solo iglesia</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.260951586" value="Me iré después del aperitivo">
+                            <span>🥂 Me iré después del aperitivo</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.260951586" value="No puedo venir / no me dejan">
+                            <span>❌ No puedo venir / no me dejan</span>
+                        </label>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Email (para enviarte confirmación)</label>
-                    <input type="email" id="email" name="email"
-                           placeholder="tu@email.com">
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="asistencia">¿Asistirás? *</label>
-                        <select id="asistencia" name="asistencia" required>
-                            <option value="">— Selecciona —</option>
-                            <option value="Sí, allí estaré">✅ Sí, allí estaré</option>
-                            <option value="No podré asistir">❌ No podré asistir</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="acompanante">¿Con acompañante?</label>
-                        <select id="acompanante" name="acompanante">
-                            <option value="Solo/a">Voy solo/a</option>
-                            <option value="Con pareja">Con pareja</option>
-                            <option value="Con familia">Con familia</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="alergias">Alergias o intolerancias</label>
-                    <input type="text" id="alergias" name="alergias"
+                    <label for="alergias">Alergias e intolerancias</label>
+                    <input type="text" id="alergias" name="entry.410049122"
                            placeholder="Ej: gluten, vegetariano... (dejar vacío si no hay)">
                 </div>
 
                 <div class="form-group">
-                    <label for="mensaje">Mensaje para los novios 💌</label>
-                    <textarea id="mensaje" name="mensaje"
-                              placeholder="Un deseo, una canción que no puede faltar, lo que quieras decirnos..."></textarea>
+                    <label>¿Necesitarás desplazarte en Autobús? <span style="font-size:0.82em; color:var(--texto-suave)">(Salida y vuelta: Plaça Francesc Macià)</span></label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1025045433" value="Sí">
+                            <span>🚌 Sí</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1025045433" value="Iré con mi coche o en el coche de alguien.">
+                            <span>🚗 Iré con mi coche o en el coche de alguien</span>
+                        </label>
+                    </div>
                 </div>
 
-                <input type="hidden" name="_subject" value="RSVP — Boda Queralt &amp; Edu">
+                <div class="form-group">
+                    <label for="mensaje">Si quieres, escribe algo para hacer más amena la lectura de respuestas 💌</label>
+                    <textarea id="mensaje" name="entry.628209079"
+                              placeholder="Un deseo, una canción, lo que quieras decirnos..."></textarea>
+                </div>
 
                 <button type="submit" class="btn-submit">Enviar confirmación</button>
             </form>
@@ -1041,7 +1057,8 @@
             window.scrollY > 40 ? '0 2px 20px rgba(78,115,73,0.12)' : 'none';
     });
 
-    // ── 3. ENVÍO DEL FORMULARIO RSVP (Formspree) ─────────────
+    // ── 3. ENVÍO DEL FORMULARIO RSVP → Google Forms ──────────
+    const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScnNJzfFtFVUVRBub-xIyh8sgni13p1bsjxR9pLVDdBvrtWDw/formResponse';
     const form = document.getElementById('rsvp-form');
 
     form.addEventListener('submit', async e => {
@@ -1052,20 +1069,17 @@
         btn.disabled = true;
 
         try {
-            const res = await fetch(form.action, {
-                method:  'POST',
-                body:    new FormData(form),
-                headers: { 'Accept': 'application/json' }
+            // Google Forms no permite CORS, usamos no-cors (no obtenemos respuesta pero sí se envía)
+            await fetch(GOOGLE_FORM_URL, {
+                method: 'POST',
+                mode:   'no-cors',
+                body:   new FormData(form)
             });
 
-            if (res.ok) {
-                form.style.display = 'none';
-                document.getElementById('success-msg').style.display = 'block';
-            } else {
-                alert('Hubo un problema al enviar. ¡Inténtalo de nuevo!');
-                btn.textContent = 'Enviar confirmación';
-                btn.disabled = false;
-            }
+            // Mostramos éxito (no-cors no devuelve error aunque falle, así que asumimos OK)
+            form.style.display = 'none';
+            document.getElementById('success-msg').style.display = 'block';
+
         } catch {
             alert('Hubo un problema de red. ¡Inténtalo de nuevo!');
             btn.textContent = 'Enviar confirmación';
