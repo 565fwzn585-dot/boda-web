@@ -495,11 +495,11 @@
         .coche-wrap {
             position: absolute;
             bottom: 6px;
-            animation: coche-ir 13s ease-in-out infinite alternate;
+            animation: coche-ir 10s linear infinite;
         }
         @keyframes coche-ir {
-            0%   { left: 4%; }
-            100% { left: 54%; }
+            0%   { left: -80px; }
+            100% { left: 105%; }
         }
         .coche-wrap .coche {
             display: block;
@@ -571,6 +571,7 @@
             margin: 0 auto;
             width: fit-content;
             max-width: 100%;
+            text-align: center;
             background: var(--blanco);
             border: 1px solid var(--borde);
             border-radius: 12px;
@@ -739,6 +740,8 @@
             .carousel-next { right: 0.7rem; }
 
             .form-row { grid-template-columns: 1fr; }
+
+            .footer-date { letter-spacing: 1px; font-size: 0.62rem; white-space: nowrap; }
 
             #hero { min-height: 68vh; padding: 7rem 1.2rem 3.5rem; }
             #hero .hero-bg { background-position: center 56%; }
