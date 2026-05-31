@@ -8,7 +8,7 @@
     <!-- Fuentes elegantes de Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:wght@300;400;500&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 
     <style>
         /* ── Reset ── */
@@ -231,7 +231,7 @@
             min-width: 76px;
         }
         .cd-num {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: var(--titulo);
             font-size: clamp(2rem, 3.2vw, 2.8rem);
             font-weight: 300;
             line-height: 1;
@@ -481,35 +481,65 @@
         .lugar-mapa svg { width: 14px; height: 14px; flex-shrink: 0; }
         .lugar-mapa:hover { color: var(--verde-sage); }
 
-        /* ── Coche flotante sobre la sección ── */
-        #evento { position: relative; overflow: hidden; }
+        /* ── Coche entre la iglesia y el restaurante ── */
         .ruta {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            z-index: 4;
+            position: relative;
+            height: 88px;
+            margin-top: 1.6rem;
+            overflow: visible;
         }
-        .ruta .coche {
+        .coche-wrap {
             position: absolute;
-            width: 68px;
+            bottom: 6px;
+            animation: coche-ir 13s ease-in-out infinite alternate;
+        }
+        @keyframes coche-ir {
+            0%   { left: 4%; }
+            100% { left: 54%; }
+        }
+        .coche-wrap .coche {
+            display: block;
+            width: 64px;
             height: auto;
-            filter: drop-shadow(0 4px 5px rgba(40, 50, 35, 0.22));
+            transform: scaleX(-1);
+            filter: drop-shadow(0 4px 5px rgba(40,50,35,0.2));
             mix-blend-mode: multiply;
-            animation: coche-libre 18s ease-in-out infinite;
+            animation: motor 0.2s linear infinite;
         }
-        @keyframes coche-libre {
-            0%   { left: -80px;  top: 48%; transform: scaleX(-1); }
-            10%  { left: 8%;     top: 22%; transform: scaleX(-1); }
-            22%  { left: 22%;    top: 64%; transform: scaleX(-1); }
-            35%  { left: 40%;    top: 20%; transform: scaleX(-1); }
-            48%  { left: 55%;    top: 62%; transform: scaleX(-1); }
-            62%  { left: 70%;    top: 24%; transform: scaleX(-1); }
-            76%  { left: 84%;    top: 58%; transform: scaleX(-1); }
-            90%  { left: 96%;    top: 30%; transform: scaleX(-1); }
-            100% { left: 110%;   top: 48%; transform: scaleX(-1); }
+        @keyframes motor {
+            0%, 100% { transform: scaleX(-1) translateY(0); }
+            50%       { transform: scaleX(-1) translateY(-1.5px); }
+        }
+        /* Humo del tubo de escape */
+        .humo {
+            position: absolute;
+            left: 3px;
+            bottom: 95%;
+            width: 14px;
+            height: 32px;
+            pointer-events: none;
+        }
+        .humo span {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(155,165,150,0.65);
+            animation: puf 2.2s ease-out infinite;
+        }
+        .humo span:nth-child(2) { animation-delay: 0.73s; }
+        .humo span:nth-child(3) { animation-delay: 1.46s; }
+        @keyframes puf {
+            0%   { transform: translate(0,0) scale(1);          opacity: 0.65; }
+            50%  { transform: translate(4px,-12px) scale(1.9);  opacity: 0.3; }
+            100% { transform: translate(-2px,-28px) scale(2.8); opacity: 0; }
         }
         @media (prefers-reduced-motion: reduce) {
-            .ruta .coche { animation: none; left: 45%; top: 40%; }
+            .coche-wrap { animation: none; left: 28%; }
+            .coche-wrap .coche { animation: none; }
+            .humo { display: none; }
         }
 
         /* galeria ya definida arriba en carrusel */
@@ -533,7 +563,10 @@
             font-style: italic;
         }
         .regalo-cuenta {
-            display: inline-block;
+            display: block;
+            margin: 0 auto;
+            width: fit-content;
+            max-width: 100%;
             background: var(--blanco);
             border: 1px solid var(--borde);
             border-radius: 12px;
@@ -762,7 +795,7 @@
                 <div class="lugar-foto">
                     <img src="fotos/lugar-convite.png" alt="Restaurante El Serrat de l'Ametlla">
                 </div>
-                <div class="lugar-hora">Hasta las 23:30 H aprox.</div>
+                <div class="lugar-hora">Hasta las 23:30h aprox.</div>
                 <p class="lugar-desc">Una masía en lo alto del Vallès con vistas increíbles.</p>
                 <div class="lugar-divider"></div>
                 <p class="lugar-dir">Restaurante El Serrat de l'Ametlla<br>L'Ametlla del Vallès, Barcelona</p>
@@ -773,11 +806,18 @@
                 </a>
             </div>
         </div>
-    </div>
 
-    <!-- Coche flotante fuera del container para cubrir toda la sección -->
-    <div class="ruta" aria-hidden="true">
-        <img class="coche" src="fotos/coche.png" alt="">
+        <!-- Coche que va de la iglesia al restaurante -->
+        <div class="ruta" aria-hidden="true">
+            <div class="coche-wrap">
+                <img class="coche" src="fotos/coche.png" alt="">
+                <div class="humo">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
