@@ -161,27 +161,56 @@
             text-shadow: 0 1px 16px rgba(20,28,18,0.5);
         }
 
-        /* Cuenta atrás */
-        #contador {
-            text-align: center;
-            padding: 5.5rem 2rem;
-            background: linear-gradient(160deg, var(--verde-muy-claro) 0%, var(--crema) 100%);
+        /* ══════════════════════════════
+           CARRUSEL + CUENTA ATRÁS
+        ══════════════════════════════ */
+        #galeria {
+            padding: 0;
+            background: #0a120a;
         }
-        #contador .contador-tag {
-            font-size: 0.72rem;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            color: var(--verde-sage);
-            margin-bottom: 0.7rem;
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 88vh;
+            min-height: 480px;
+            overflow: hidden;
         }
-        #contador h2 {
-            font-family: var(--titulo);
-            font-weight: 300;
-            font-size: clamp(1.9rem, 4vw, 2.8rem);
-            color: var(--texto);
-            margin-bottom: 2.4rem;
+        .carousel-track {
+            display: flex;
+            height: 100%;
+            will-change: transform;
+            transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        #contador h2 em { font-style: italic; color: var(--verde-oscuro); }
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .carousel-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg,
+                rgba(10,18,8,0.12) 0%,
+                rgba(10,18,8,0.28) 50%,
+                rgba(10,18,8,0.52) 100%);
+            pointer-events: none;
+            z-index: 2;
+        }
+        .carousel-countdown {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+            pointer-events: none;
+        }
         .countdown {
             display: flex;
             gap: 1.5rem;
@@ -192,26 +221,76 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: rgba(255,255,255,0.7);
-            border: 1px solid var(--borde);
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.25);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             border-radius: 14px;
-            padding: 1.2rem 1.8rem;
-            min-width: 88px;
-            backdrop-filter: blur(6px);
+            padding: 1.4rem 2rem;
+            min-width: 100px;
         }
         .cd-num {
             font-family: var(--titulo);
-            font-size: 3rem;
+            font-size: clamp(2.8rem, 5vw, 4rem);
             font-weight: 300;
             line-height: 1;
-            color: var(--verde-oscuro);
+            color: #ffffff;
+            text-shadow: 0 2px 24px rgba(0,0,0,0.35);
         }
         .cd-lbl {
             font-size: 0.62rem;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            color: var(--texto-suave);
-            margin-top: 0.3rem;
+            color: rgba(255,255,255,0.7);
+            margin-top: 0.4rem;
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            background: rgba(255,255,255,0.14);
+            border: 1px solid rgba(255,255,255,0.28);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: white;
+            font-size: 1.8rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.25s;
+            padding: 0;
+            line-height: 1;
+        }
+        .carousel-btn:hover { background: rgba(255,255,255,0.28); }
+        .carousel-prev { left: 1.5rem; }
+        .carousel-next { right: 1.5rem; }
+        .carousel-dots {
+            position: absolute;
+            bottom: 1.8rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.6rem;
+            z-index: 10;
+        }
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.38);
+            border: none;
+            cursor: pointer;
+            transition: background 0.25s, transform 0.25s;
+            padding: 0;
+        }
+        .carousel-dot.active {
+            background: rgba(255,255,255,0.9);
+            transform: scale(1.4);
         }
 
         .scroll-hint {
@@ -498,31 +577,7 @@
         }
         .prog-info p { font-size: 0.88rem; color: var(--texto-suave); }
 
-        /* ══════════════════════════════
-           GALERÍA
-        ══════════════════════════════ */
-        #galeria { background: var(--verde-muy-claro); }
-
-        .galeria-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: 260px 260px;
-            gap: 10px;
-            margin-top: 3rem;
-        }
-        .gal-item {
-            overflow: hidden;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-        .gal-item:first-child { grid-row: span 2; }
-        .gal-item img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-            display: block;
-        }
-        .gal-item:hover img { transform: scale(1.06); }
+        /* galeria ya definida arriba en carrusel */
 
         /* ══════════════════════════════
            RSVP
@@ -668,23 +723,16 @@
 
             .evento-grid { grid-template-columns: 1fr; }
 
-            .galeria-grid {
-                grid-template-columns: 1fr 1fr;
-                grid-template-rows: auto;
-            }
-            .gal-item:first-child {
-                grid-column: span 2;
-                grid-row: span 1;
-                height: 240px;
-            }
+            .carousel { height: 70vh; min-height: 400px; }
+            .cd-item { padding: 1rem 1.2rem; min-width: 78px; }
+            .countdown { gap: 0.7rem; }
+            .carousel-btn { width: 40px; height: 40px; font-size: 1.4rem; }
+            .carousel-prev { left: 0.8rem; }
+            .carousel-next { right: 0.8rem; }
 
             .form-row { grid-template-columns: 1fr; }
 
             .programa-wrap::before { left: 50px; }
-
-            .countdown { gap: 0.8rem; }
-            .cd-item { padding: 1rem 1.2rem; min-width: 76px; }
-            .cd-num { font-size: 2.4rem; }
 
             #hero { min-height: 68vh; padding: 7rem 1.2rem 3.5rem; }
             #hero .hero-bg { background-position: center 56%; }
@@ -797,29 +845,6 @@
     </div>
 </section>
 
-<!-- ════════════════ CUENTA ATRÁS ════════════════ -->
-<section id="contador">
-    <p class="contador-tag">La cuenta atrás</p>
-    <h2>Cada día más cerca del <em>sí, quiero</em></h2>
-    <div class="countdown">
-        <div class="cd-item">
-            <span class="cd-num" id="dias">--</span>
-            <span class="cd-lbl">Días</span>
-        </div>
-        <div class="cd-item">
-            <span class="cd-num" id="horas">--</span>
-            <span class="cd-lbl">Horas</span>
-        </div>
-        <div class="cd-item">
-            <span class="cd-num" id="minutos">--</span>
-            <span class="cd-lbl">Minutos</span>
-        </div>
-        <div class="cd-item">
-            <span class="cd-num" id="segundos">--</span>
-            <span class="cd-lbl">Segundos</span>
-        </div>
-    </div>
-</section>
 
 <!-- ════════════════ PROGRAMA ════════════════ -->
 <section id="programa">
@@ -886,42 +911,49 @@
     </div>
 </section>
 
-<!-- ════════════════ GALERÍA ════════════════ -->
+<!-- ════════════════ GALERÍA + CUENTA ATRÁS ════════════════ -->
 <section id="galeria">
-    <div class="container">
-        <div style="text-align:center">
-            <span class="section-tag">Nosotros</span>
-            <h2>Algunos de nuestros <em>momentos</em></h2>
-            <div class="divider"><span>✦</span></div>
+    <div class="carousel" id="carousel">
+        <!-- Pista de fotos -->
+        <div class="carousel-track" id="carouselTrack">
+            <div class="carousel-slide"><img src="fotos/foto1.jpg" alt="Queralt y Edu"></div>
+            <div class="carousel-slide"><img src="fotos/foto2.jpg" alt="Queralt y Edu"></div>
+            <div class="carousel-slide"><img src="fotos/foto3.jpg" alt="Queralt y Edu"></div>
+            <div class="carousel-slide"><img src="fotos/foto4.jpg" alt="Queralt y Edu"></div>
+            <div class="carousel-slide"><img src="fotos/foto5.jpg" alt="Queralt y Edu"></div>
         </div>
 
-        <!--
-            ✏️ PERSONALIZA: Guarda vuestras fotos en la carpeta "fotos/"
-            con los nombres foto1.jpg, foto2.jpg, etc.
-            Si no hay archivo, se muestra una imagen de ejemplo.
-        -->
-        <div class="galeria-grid">
-            <div class="gal-item">
-                <img src="fotos/foto1.jpg" alt="Queralt y Edu"
-                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1519741497674-611481863552?w=500&q=80'">
-            </div>
-            <div class="gal-item">
-                <img src="fotos/foto2.jpg" alt="Queralt y Edu"
-                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1529636798458-92182e662485?w=500&q=80'">
-            </div>
-            <div class="gal-item">
-                <img src="fotos/foto3.jpg" alt="Queralt y Edu"
-                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1545232979-8bf68ee9b1af?w=500&q=80'">
-            </div>
-            <div class="gal-item">
-                <img src="fotos/foto4.jpg" alt="Queralt y Edu"
-                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1460978812857-470ed1c77af0?w=500&q=80'">
-            </div>
-            <div class="gal-item">
-                <img src="fotos/foto5.jpg" alt="Queralt y Edu"
-                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=500&q=80'">
+        <!-- Gradiente de oscurecimiento -->
+        <div class="carousel-overlay"></div>
+
+        <!-- Cuenta atrás flotando en el centro -->
+        <div class="carousel-countdown">
+            <div class="countdown">
+                <div class="cd-item">
+                    <span class="cd-num" id="dias">--</span>
+                    <span class="cd-lbl">Días</span>
+                </div>
+                <div class="cd-item">
+                    <span class="cd-num" id="horas">--</span>
+                    <span class="cd-lbl">Horas</span>
+                </div>
+                <div class="cd-item">
+                    <span class="cd-num" id="minutos">--</span>
+                    <span class="cd-lbl">Minutos</span>
+                </div>
+                <div class="cd-item">
+                    <span class="cd-num" id="segundos">--</span>
+                    <span class="cd-lbl">Segundos</span>
+                </div>
             </div>
         </div>
+
+        <!-- Flechas de navegación -->
+        <button class="carousel-btn carousel-prev" aria-label="Foto anterior">&#8249;</button>
+        <button class="carousel-btn carousel-next" aria-label="Foto siguiente">&#8250;</button>
+
+        <!-- Puntos indicadores -->
+        <div class="carousel-dots" id="carouselDots"></div>
     </div>
 </section>
 
@@ -1057,7 +1089,53 @@
             window.scrollY > 40 ? '0 2px 20px rgba(78,115,73,0.12)' : 'none';
     });
 
-    // ── 3. ENVÍO DEL FORMULARIO RSVP → Google Forms ──────────
+    // ── 3. CARRUSEL ──────────────────────────────────────
+    (function () {
+        const track  = document.getElementById('carouselTrack');
+        const dotsEl = document.getElementById('carouselDots');
+        const slides = track.querySelectorAll('.carousel-slide');
+        const total  = slides.length;
+        let current  = 0;
+        let timer;
+
+        // Crear puntos
+        slides.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', 'Foto ' + (i + 1));
+            dot.addEventListener('click', () => goTo(i));
+            dotsEl.appendChild(dot);
+        });
+
+        function goTo(n) {
+            current = (n + total) % total;
+            track.style.transform = `translateX(-${current * 100}%)`;
+            dotsEl.querySelectorAll('.carousel-dot').forEach((d, i) =>
+                d.classList.toggle('active', i === current));
+            resetTimer();
+        }
+
+        function resetTimer() {
+            clearInterval(timer);
+            timer = setInterval(() => goTo(current + 1), 5000);
+        }
+
+        document.querySelector('.carousel-prev').addEventListener('click', () => goTo(current - 1));
+        document.querySelector('.carousel-next').addEventListener('click', () => goTo(current + 1));
+
+        // Soporte swipe táctil
+        let startX = 0;
+        const carousel = document.getElementById('carousel');
+        carousel.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+        carousel.addEventListener('touchend', e => {
+            const diff = startX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+        }, { passive: true });
+
+        resetTimer();
+    })();
+
+    // ── 5. ENVÍO DEL FORMULARIO RSVP → Google Forms ──────────
     const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScnNJzfFtFVUVRBub-xIyh8sgni13p1bsjxR9pLVDdBvrtWDw/formResponse';
     const form = document.getElementById('rsvp-form');
 
