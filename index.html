@@ -529,55 +529,51 @@
             .ruta .coche { animation: none; left: 42%; }
         }
 
-        /* ══════════════════════════════
-           PROGRAMA
-        ══════════════════════════════ */
-        #programa { background: var(--blanco); }
-
-        .programa-wrap {
-            position: relative;
-            max-width: 520px;
-            margin: 3rem auto 0;
-        }
-        .programa-wrap::before {
-            content: '';
-            position: absolute;
-            left: 54px; top: 0; bottom: 0;
-            width: 1px;
-            background: var(--verde-claro);
-        }
-        .prog-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        .prog-hora {
-            min-width: 50px;
-            font-family: var(--titulo);
-            font-size: 1.05rem;
-            color: var(--verde-oscuro);
-            text-align: right;
-            padding-top: 0.1rem;
-            flex-shrink: 0;
-        }
-        .prog-dot {
-            width: 13px; height: 13px;
-            border-radius: 50%;
-            background: var(--verde-pastel);
-            border: 2px solid var(--verde-oscuro);
-            margin-top: 0.35rem;
-            flex-shrink: 0;
-        }
-        .prog-info h4 {
-            font-size: 0.98rem;
-            font-weight: 500;
-            color: var(--texto);
-            margin-bottom: 0.15rem;
-        }
-        .prog-info p { font-size: 0.88rem; color: var(--texto-suave); }
-
         /* galeria ya definida arriba en carrusel */
+
+        /* ══════════════════════════════
+           REGALO
+        ══════════════════════════════ */
+        #regalo {
+            background: var(--verde-muy-claro);
+            text-align: center;
+        }
+        .regalo-wrap {
+            max-width: 620px;
+            margin: 0 auto;
+        }
+        .regalo-texto {
+            font-size: 1.05rem;
+            color: var(--texto-medio);
+            line-height: 1.85;
+            margin-bottom: 2.2rem;
+            font-style: italic;
+        }
+        .regalo-cuenta {
+            display: inline-block;
+            background: var(--blanco);
+            border: 1px solid var(--borde);
+            border-radius: 12px;
+            padding: 1.1rem 2rem;
+            font-family: var(--titulo);
+            font-size: 1.15rem;
+            letter-spacing: 2px;
+            color: var(--texto);
+            cursor: pointer;
+            transition: box-shadow 0.25s;
+            user-select: all;
+        }
+        .regalo-cuenta:hover {
+            box-shadow: 0 4px 20px rgba(78,115,73,0.13);
+        }
+        .regalo-copy-hint {
+            display: block;
+            font-size: 0.68rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--verde-sage);
+            margin-top: 0.6rem;
+        }
 
         /* ══════════════════════════════
            RSVP
@@ -732,8 +728,6 @@
 
             .form-row { grid-template-columns: 1fr; }
 
-            .programa-wrap::before { left: 50px; }
-
             #hero { min-height: 68vh; padding: 7rem 1.2rem 3.5rem; }
             #hero .hero-bg { background-position: center 56%; }
         }
@@ -750,9 +744,9 @@
     <ul>
         <li><a href="#historia">Nosotros</a></li>
         <li><a href="#evento">El día</a></li>
-        <li><a href="#programa">Programa</a></li>
         <li><a href="#galeria">Fotos</a></li>
         <li><a href="#rsvp">Confirmar</a></li>
+        <li><a href="#regalo">Regalo</a></li>
     </ul>
 </nav>
 
@@ -846,70 +840,6 @@
 </section>
 
 
-<!-- ════════════════ PROGRAMA ════════════════ -->
-<section id="programa">
-    <div class="container" style="text-align:center">
-        <span class="section-tag">El programa</span>
-        <h2>Un día <em>lleno de momentos</em></h2>
-        <div class="divider"><span>✦</span></div>
-
-        <!-- ✏️ PERSONALIZA: Ajusta los horarios a los reales -->
-        <div class="programa-wrap">
-            <div class="prog-item">
-                <div class="prog-hora">12:15</div>
-                <div class="prog-dot"></div>
-                <div class="prog-info">
-                    <h4>Llegada de invitados</h4>
-                    <p>Santuari de la Misericòrdia, Canet de Mar</p>
-                </div>
-            </div>
-            <div class="prog-item">
-                <div class="prog-hora">12:30</div>
-                <div class="prog-dot"></div>
-                <div class="prog-info">
-                    <h4>Ceremonia</h4>
-                    <p>El momento que tanto hemos esperado</p>
-                </div>
-            </div>
-            <div class="prog-item">
-                <div class="prog-hora">13:30</div>
-                <div class="prog-dot"></div>
-                <div class="prog-info">
-                    <h4>Cóctel y fotos</h4>
-                    <p>Brindis, risas y fotos para el recuerdo</p>
-                </div>
-            </div>
-            <div class="prog-item">
-                <div class="prog-hora">15:00</div>
-                <div class="prog-dot"></div>
-                <div class="prog-info">
-                    <h4>Comida</h4>
-                    <p>Restaurant El Serrat de l'Ametlla</p>
-                </div>
-            </div>
-            <div class="prog-item">
-                <div class="prog-hora">18:00</div>
-                <div class="prog-dot"></div>
-                <div class="prog-info">
-                    <h4>Tarta y primer baile</h4>
-                    <p>¡A celebrar con música y alegría!</p>
-                </div>
-            </div>
-            <div class="prog-item">
-                <div class="prog-hora">🌙</div>
-                <div class="prog-dot"></div>
-                <div class="prog-info">
-                    <h4>Fiesta</h4>
-                    <p>Que dure lo que tenga que durar</p>
-                </div>
-            </div>
-        </div>
-
-        <p style="margin-top:2rem; font-size:0.84rem; color:var(--texto-suave); font-style:italic;">
-            * Los horarios son orientativos · ¡lo importante es disfrutar juntos!
-        </p>
-    </div>
-</section>
 
 <!-- ════════════════ GALERÍA + CUENTA ATRÁS ════════════════ -->
 <section id="galeria">
@@ -1043,6 +973,22 @@
     </div>
 </section>
 
+<!-- ════════════════ REGALO ════════════════ -->
+<section id="regalo">
+    <div class="container">
+        <div class="regalo-wrap">
+            <span class="section-tag">El regalo</span>
+            <h2><em>Si te apetece</em></h2>
+            <div class="divider"><span>✦</span></div>
+            <p class="regalo-texto">
+                No queremos "cubrir cubiertos". La familia Prats Farreras va a empezar de cero y si te hiciera ilusión ayudarnos, sea de la forma que sea, podremos seguir diciendo que Dios proveerá.
+            </p>
+            <span class="regalo-cuenta" id="iban" title="Haz clic para copiar">ES8000812716940022792295</span>
+            <span class="regalo-copy-hint" id="copy-hint">Toca para copiar</span>
+        </div>
+    </div>
+</section>
+
 <!-- ════════════════ FOOTER ════════════════ -->
 <footer>
     <div class="footer-names">Queralt &amp; Edu</div>
@@ -1132,7 +1078,16 @@
         resetTimer();
     })();
 
-    // ── 5. ENVÍO DEL FORMULARIO RSVP → Google Forms ──────────
+    // ── 5. COPIAR IBAN AL PORTAPAPELES ──────────────────────
+    document.getElementById('iban').addEventListener('click', function () {
+        navigator.clipboard.writeText('ES8000812716940022792295').then(() => {
+            const hint = document.getElementById('copy-hint');
+            hint.textContent = '¡Copiado!';
+            setTimeout(() => { hint.textContent = 'Toca para copiar'; }, 2000);
+        });
+    });
+
+    // ── 6. ENVÍO DEL FORMULARIO RSVP → Google Forms ──────────
     const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScnNJzfFtFVUVRBub-xIyh8sgni13p1bsjxR9pLVDdBvrtWDw/formResponse';
     const form = document.getElementById('rsvp-form');
 
