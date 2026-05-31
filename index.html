@@ -8,7 +8,7 @@
     <!-- Fuentes elegantes de Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:wght@300;400;500&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
 
     <style>
         /* ── Reset ── */
@@ -206,14 +206,15 @@
             position: absolute;
             inset: 0;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
+            padding-top: 10%;
             z-index: 5;
             pointer-events: none;
         }
         .countdown {
             display: flex;
-            gap: 1.5rem;
+            gap: 1rem;
             flex-wrap: wrap;
             justify-content: center;
         }
@@ -221,28 +222,28 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: rgba(255,255,255,0.12);
-            border: 1px solid rgba(255,255,255,0.25);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-radius: 14px;
-            padding: 1.4rem 2rem;
-            min-width: 100px;
+            background: rgba(255,255,255,0.10);
+            border: 1px solid rgba(255,255,255,0.20);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 10px;
+            padding: 0.85rem 1.3rem;
+            min-width: 76px;
         }
         .cd-num {
-            font-family: var(--titulo);
-            font-size: clamp(2.8rem, 5vw, 4rem);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 3.2vw, 2.8rem);
             font-weight: 300;
             line-height: 1;
             color: #ffffff;
-            text-shadow: 0 2px 24px rgba(0,0,0,0.35);
+            text-shadow: 0 2px 20px rgba(0,0,0,0.35);
         }
         .cd-lbl {
-            font-size: 0.62rem;
-            letter-spacing: 3px;
+            font-size: 0.58rem;
+            letter-spacing: 2.5px;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.7);
-            margin-top: 0.4rem;
+            color: rgba(255,255,255,0.65);
+            margin-top: 0.35rem;
         }
         .carousel-btn {
             position: absolute;
@@ -480,53 +481,35 @@
         .lugar-mapa svg { width: 14px; height: 14px; flex-shrink: 0; }
         .lugar-mapa:hover { color: var(--verde-sage); }
 
-        /* ── Ruta del coche entre los dos lugares ── */
+        /* ── Coche flotante sobre la sección ── */
+        #evento { position: relative; overflow: hidden; }
         .ruta {
-            position: relative;
-            height: 140px;
-            margin-top: 2.4rem;
-            overflow: hidden;
-        }
-        .ruta .road-line {
             position: absolute;
-            left: 6px; right: 6px;
-            bottom: 30px;
-            border-top: 3px dashed var(--verde-pastel);
-            opacity: 0.85;
+            inset: 0;
+            pointer-events: none;
+            z-index: 4;
         }
-        .ruta .road-line::before,
-        .ruta .road-line::after {
-            content: '';
-            position: absolute;
-            top: -7px;
-            width: 11px; height: 11px;
-            border-radius: 50%;
-            background: var(--verde-sage);
-            box-shadow: 0 0 0 4px var(--verde-muy-claro);
-        }
-        .ruta .road-line::before { left: -2px; }
-        .ruta .road-line::after  { right: -2px; background: var(--terracota); }
         .ruta .coche {
             position: absolute;
-            bottom: 22px;
-            left: -150px;
-            width: 116px;
+            width: 68px;
             height: auto;
-            filter: drop-shadow(0 6px 5px rgba(40, 50, 35, 0.18));
+            filter: drop-shadow(0 4px 5px rgba(40, 50, 35, 0.22));
             mix-blend-mode: multiply;
-            transform: scaleX(-1);
-            animation: conducir 8.5s linear infinite, bache 1.2s ease-in-out infinite;
+            animation: coche-libre 18s ease-in-out infinite;
         }
-        @keyframes conducir {
-            0%   { left: -150px; }
-            100% { left: 100%; }
-        }
-        @keyframes bache {
-            0%, 100% { transform: scaleX(-1) translateY(0); }
-            50%      { transform: scaleX(-1) translateY(-3px); }
+        @keyframes coche-libre {
+            0%   { left: -80px;  top: 48%; transform: scaleX(-1); }
+            10%  { left: 8%;     top: 22%; transform: scaleX(-1); }
+            22%  { left: 22%;    top: 64%; transform: scaleX(-1); }
+            35%  { left: 40%;    top: 20%; transform: scaleX(-1); }
+            48%  { left: 55%;    top: 62%; transform: scaleX(-1); }
+            62%  { left: 70%;    top: 24%; transform: scaleX(-1); }
+            76%  { left: 84%;    top: 58%; transform: scaleX(-1); }
+            90%  { left: 96%;    top: 30%; transform: scaleX(-1); }
+            100% { left: 110%;   top: 48%; transform: scaleX(-1); }
         }
         @media (prefers-reduced-motion: reduce) {
-            .ruta .coche { animation: none; left: 42%; }
+            .ruta .coche { animation: none; left: 45%; top: 40%; }
         }
 
         /* galeria ya definida arriba en carrusel */
@@ -682,26 +665,13 @@
             background: var(--texto);
             color: var(--verde-muy-claro);
             text-align: center;
-            padding: 3.5rem 2rem;
-        }
-        .footer-names {
-            font-family: var(--titulo);
-            font-size: 2.8rem;
-            font-weight: 300;
-            letter-spacing: 4px;
-            margin-bottom: 0.4rem;
+            padding: 1.4rem 2rem;
         }
         .footer-date {
-            font-size: 0.8rem;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            opacity: 0.45;
-        }
-        footer .hecho {
-            margin-top: 2rem;
             font-size: 0.72rem;
-            opacity: 0.25;
-            letter-spacing: 1px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            opacity: 0.38;
         }
 
         /* ══════════════════════════════
@@ -720,11 +690,12 @@
             .evento-grid { grid-template-columns: 1fr; }
 
             .carousel { height: 70vh; min-height: 400px; }
-            .cd-item { padding: 1rem 1.2rem; min-width: 78px; }
-            .countdown { gap: 0.7rem; }
-            .carousel-btn { width: 40px; height: 40px; font-size: 1.4rem; }
-            .carousel-prev { left: 0.8rem; }
-            .carousel-next { right: 0.8rem; }
+            .carousel-countdown { padding-top: 8%; }
+            .cd-item { padding: 0.65rem 0.9rem; min-width: 64px; }
+            .countdown { gap: 0.55rem; }
+            .carousel-btn { width: 38px; height: 38px; font-size: 1.3rem; }
+            .carousel-prev { left: 0.7rem; }
+            .carousel-next { right: 0.7rem; }
 
             .form-row { grid-template-columns: 1fr; }
 
@@ -778,7 +749,7 @@
                 <p class="lugar-desc">El santuario de la patrona del Maresme con una fachada al estilo Shrek y mucha facilidad para aparcar.</p>
                 <div class="lugar-divider"></div>
                 <p class="lugar-dir">Santuari de la Misericòrdia<br>Canet de Mar, Barcelona</p>
-                <a href="https://maps.google.com/?q=Santuari+Misericordia+Canet+de+Mar"
+                <a href="https://maps.app.goo.gl/fpTmWDNyvoFaHUyE6"
                    target="_blank" rel="noopener" class="lugar-mapa">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                     Ver en el mapa
@@ -787,13 +758,14 @@
 
             <div class="lugar-card">
                 <span class="lugar-badge">Convite</span>
-                <div class="lugar-nombre">Restaurant El Serrat de l'Ametlla</div>
+                <div class="lugar-nombre">Restaurante El Serrat de l'Ametlla</div>
                 <div class="lugar-foto">
-                    <img src="fotos/lugar-convite.png" alt="Restaurant El Serrat de l'Ametlla">
+                    <img src="fotos/lugar-convite.png" alt="Restaurante El Serrat de l'Ametlla">
                 </div>
-                <p class="lugar-desc">Coronando en lo alto del Vallès, una masia con vistas increíbles. Trae chaquetilla para la noche.</p>
+                <div class="lugar-hora">Hasta las 23:30 H aprox.</div>
+                <p class="lugar-desc">Una masía en lo alto del Vallès con vistas increíbles.</p>
                 <div class="lugar-divider"></div>
-                <p class="lugar-dir">Restaurant El Serrat de l'Ametlla<br>L'Ametlla del Vallès, Barcelona</p>
+                <p class="lugar-dir">Restaurante El Serrat de l'Ametlla<br>L'Ametlla del Vallès, Barcelona</p>
                 <a href="https://maps.google.com/?q=Restaurant+El+Serrat+Ametlla+del+Valles"
                    target="_blank" rel="noopener" class="lugar-mapa">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
@@ -801,11 +773,11 @@
                 </a>
             </div>
         </div>
+    </div>
 
-        <div class="ruta" aria-hidden="true">
-            <div class="road-line"></div>
-            <img class="coche" src="fotos/coche.png" alt="">
-        </div>
+    <!-- Coche flotante fuera del container para cubrir toda la sección -->
+    <div class="ruta" aria-hidden="true">
+        <img class="coche" src="fotos/coche.png" alt="">
     </div>
 </section>
 
@@ -892,13 +864,8 @@
     <div class="container">
         <div class="rsvp-wrap">
             <span class="section-tag">Confirmación de asistencia</span>
-            <h2>¿Venís a <em>celebrar</em><br>con nosotros?</h2>
             <div class="divider"><span>✦</span></div>
-            <p>
-                Rellenar un formulario por persona.<br>
-                Os pedimos que confirmáis antes del <strong>31 de agosto de 2026</strong>.
-                ¡Nos hará muchísima ilusión contar con vosotros!
-            </p>
+            <p>Rellenar un formulario por cada invitado. Muchas gracias!!</p>
 
             <form id="rsvp-form">
 
@@ -991,9 +958,7 @@
 
 <!-- ════════════════ FOOTER ════════════════ -->
 <footer>
-    <div class="footer-names">Queralt &amp; Edu</div>
     <div class="footer-date">11 · Octubre · 2026 · Canet de Mar</div>
-    <p class="hecho">Hecho con amor 💚</p>
 </footer>
 
 <!-- ════════════════ JAVASCRIPT ════════════════ -->
