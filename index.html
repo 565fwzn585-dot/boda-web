@@ -352,12 +352,6 @@
             align-items: center;
         }
         .historia-foto { position: relative; }
-        .historia-foto img {
-            width: 100%; height: 460px;
-            object-fit: cover;
-            border-radius: 4px;
-            display: block;
-        }
         .historia-foto::before {
             content: '';
             position: absolute;
@@ -365,6 +359,30 @@
             border: 2px solid var(--verde-claro);
             border-radius: 6px;
             z-index: -1;
+        }
+        /* Dos fotos de padres, lado a lado */
+        .historia-fotos-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            height: 460px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .historia-fotos-split img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .historia-foto-pending {
+            background: var(--verde-muy-claro);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.68rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--verde-pastel);
         }
         .historia-texto p {
             margin-bottom: 1.2rem;
@@ -898,15 +916,10 @@
             </div>
 
             <div class="historia-foto">
-                <!--
-                    ✏️ PERSONALIZA: Pon una foto vuestra en la carpeta "fotos/"
-                    y cambia el nombre "pareja.jpg" por el de vuestro archivo.
-                    Si no hay foto, se muestra una imagen de ejemplo.
-                -->
-                <img
-                    src="fotos/pareja.jpg"
-                    alt="Queralt y Edu"
-                    onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80'">
+                <div class="historia-fotos-split">
+                    <img src="fotos/padres1.jpg" alt="Boda de los padres">
+                    <div class="historia-foto-pending">Pronto…</div>
+                </div>
             </div>
         </div>
     </div>
