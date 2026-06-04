@@ -594,6 +594,61 @@
         }
 
         /* ══════════════════════════════
+           FAQ
+        ══════════════════════════════ */
+        #faq { background: var(--verde-muy-claro); }
+
+        .faq-list {
+            max-width: 680px;
+            margin: 3rem auto 0;
+        }
+        .faq-item {
+            border-bottom: 1px solid var(--borde);
+        }
+        .faq-item:first-child {
+            border-top: 1px solid var(--borde);
+        }
+        .faq-pregunta {
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            padding: 1.3rem 0;
+            font-family: var(--titulo);
+            font-size: 1.05rem;
+            color: var(--texto);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            transition: color 0.25s;
+        }
+        .faq-pregunta:hover { color: var(--verde-oscuro); }
+        .faq-item.open .faq-pregunta { color: var(--verde-oscuro); }
+        .faq-icon {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--verde-sage);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+        .faq-item.open .faq-icon { transform: rotate(45deg); }
+        .faq-respuesta {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        .faq-respuesta p {
+            padding: 0 1rem 1.4rem 0;
+            color: var(--texto-medio);
+            font-size: 0.97rem;
+            line-height: 1.8;
+        }
+        .faq-item.open .faq-respuesta { max-height: 300px; }
+
+        /* ══════════════════════════════
            RSVP
         ══════════════════════════════ */
         #rsvp { background: var(--blanco); }
@@ -757,6 +812,7 @@
         <li><a href="#historia">Nosotros</a></li>
         <li><a href="#evento">El día</a></li>
         <li><a href="#galeria">Fotos</a></li>
+        <li><a href="#faq">FAQ</a></li>
         <li><a href="#rsvp">Confirmar</a></li>
         <li><a href="#regalo">Regalo</a></li>
     </ul>
@@ -988,6 +1044,44 @@
     </div>
 </section>
 
+<!-- ════════════════ FAQ ════════════════ -->
+<section id="faq">
+    <div class="container">
+        <div style="text-align:center">
+            <span class="section-tag">Preguntas frecuentes</span>
+            <h2>Vuestras <em>dudas</em></h2>
+            <div class="divider"><span>✦</span></div>
+        </div>
+
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-pregunta">¿Cómo vais con los preparativos? <span class="faq-icon">+</span></button>
+                <div class="faq-respuesta"><p>Muy bien, pasa todo volando. Siempre hay cosas por hacer pero estamos contentos.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-pregunta">¿Quién cantará en la boda? <span class="faq-icon">+</span></button>
+                <div class="faq-respuesta"><p>A nuestras familias les encanta la música y cantar. Lo dejaremos en sus manos.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-pregunta">¿Dónde os vais de Luna de Miel? <span class="faq-icon">+</span></button>
+                <div class="faq-respuesta"><p>Nos vamos a Costa Rica. Mochila, coche y a dar vueltas por el país viendo animales y naturaleza.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-pregunta">¿Para cuándo el bebé? <span class="faq-icon">+</span></button>
+                <div class="faq-respuesta"><p>Si Dios quiere, cuando quiera.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-pregunta">¿Estáis nerviosos? <span class="faq-icon">+</span></button>
+                <div class="faq-respuesta"><p>De momento no, pero todo llegará, seguro, a medida que se acerca la fecha!!</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-pregunta">¿Os casáis un domingo? <span class="faq-icon">+</span></button>
+                <div class="faq-respuesta"><p>Así es, el lunes es fiesta en todo el Estado. Contará como misa de domingo.</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- ════════════════ REGALO ════════════════ -->
 <section id="regalo">
     <div class="container">
@@ -1100,7 +1194,17 @@
         });
     });
 
-    // ── 6. ENVÍO DEL FORMULARIO RSVP → Google Forms ──────────
+    // ── 6. ACORDEÓN FAQ ──────────────────────────────────────
+    document.querySelectorAll('.faq-pregunta').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const item = btn.parentElement;
+            const isOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+            if (!isOpen) item.classList.add('open');
+        });
+    });
+
+    // ── 7. ENVÍO DEL FORMULARIO RSVP → Google Forms ──────────
     const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScnNJzfFtFVUVRBub-xIyh8sgni13p1bsjxR9pLVDdBvrtWDw/formResponse';
     const form = document.getElementById('rsvp-form');
 
