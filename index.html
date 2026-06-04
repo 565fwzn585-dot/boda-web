@@ -346,43 +346,8 @@
         #historia { background: var(--blanco); }
 
         .historia-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-        .historia-foto { position: relative; }
-        .historia-foto::before {
-            content: '';
-            position: absolute;
-            inset: -14px;
-            border: 2px solid var(--verde-claro);
-            border-radius: 6px;
-            z-index: -1;
-        }
-        /* Dos fotos de padres, apaisadas una encima de la otra */
-        .historia-fotos-split {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        .historia-fotos-split img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        .historia-foto-pending {
-            height: 180px;
-            background: var(--verde-muy-claro);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.68rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--verde-pastel);
+            max-width: 680px;
+            margin: 0 auto;
         }
         .historia-texto p {
             margin-bottom: 1.2rem;
@@ -788,13 +753,6 @@
         @media (max-width: 768px) {
             nav ul { display: none; }
 
-            .historia-grid {
-                grid-template-columns: 1fr;
-                gap: 2.5rem;
-            }
-            .historia-foto { order: -1; }
-            .historia-foto img { height: 320px; }
-
             .evento-grid { grid-template-columns: 1fr; }
             /* Móvil: card1 → ruta → card2 en orden DOM */
             .evento-grid .lugar-card:first-child { grid-column: 1; grid-row: 1; }
@@ -915,12 +873,6 @@
                 <p>Queremos que el día no pierda el foco de lo que realmente es: el inicio de una nueva familia. La decisión más importante de nuestra vida. Y estamos ilusionados de que vosotros seáis los primeros testigos y celebrarlo todos juntos.</p>
             </div>
 
-            <div class="historia-foto">
-                <div class="historia-fotos-split">
-                    <img src="fotos/padres1.jpg" alt="Boda de los padres">
-                    <div class="historia-foto-pending">Pronto…</div>
-                </div>
-            </div>
         </div>
     </div>
 </section>
