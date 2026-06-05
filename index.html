@@ -836,6 +836,36 @@
         }
 
         /* ══════════════════════════════
+           IDIOMA TOGGLE
+        ══════════════════════════════ */
+        .lang-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            margin-left: 1.2rem;
+        }
+        .lang-btn {
+            background: none;
+            border: none;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--texto-suave);
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            border-radius: 5px;
+            transition: color 0.2s, background 0.2s;
+        }
+        .lang-btn:hover { color: var(--verde-oscuro); }
+        .lang-btn.active {
+            color: var(--verde-oscuro);
+            font-weight: 500;
+            background: var(--verde-claro);
+        }
+        .lang-sep { color: var(--borde); font-size: 0.85rem; line-height: 1; }
+
+        /* ══════════════════════════════
            MOBILE
         ══════════════════════════════ */
         @media (max-width: 768px) {
@@ -870,13 +900,18 @@
         <span class="logo-fecha">11·10·2026</span>
     </a>
     <ul>
-        <li><a href="#evento">El día</a></li>
-        <li><a href="#historia">Importante</a></li>
+        <li><a href="#evento" data-i18n="nav-dia">El día</a></li>
+        <li><a href="#historia" data-i18n="nav-importante">Importante</a></li>
         <li><a href="#galeria">Fotos</a></li>
         <li><a href="#rsvp">Confirmar</a></li>
-        <li><a href="#regalo">Regalo</a></li>
+        <li><a href="#regalo" data-i18n="nav-regalo">Regalo</a></li>
         <li><a href="#faq">FAQ</a></li>
     </ul>
+    <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="es">ES</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" data-lang="ca">CA</button>
+    </div>
 </nav>
 
 <!-- ════════════════ HERO ════════════════ -->
@@ -892,25 +927,25 @@
 <section id="evento">
     <div class="container">
         <div style="text-align:center">
-            <h2 class="evento-titulo">Dónde y cuándo</h2>
+            <h2 class="evento-titulo" data-i18n="evento-h2">Dónde y cuándo</h2>
             <div class="divider"><span>✦</span></div>
         </div>
 
         <div class="evento-grid">
             <div class="lugar-card">
-                <span class="lugar-badge">Ceremonia</span>
+                <span class="lugar-badge" data-i18n="ceremonia-badge">Ceremonia</span>
                 <div class="lugar-nombre">Santuari de la Mare de Déu de la Misericòrdia</div>
                 <div class="lugar-foto">
                     <img src="fotos/lugar-ceremonia.png" alt="Santuari de la Mare de Déu de la Misericòrdia">
                 </div>
                 <div class="lugar-hora">12:30h</div>
-                <p class="lugar-desc">El santuario de la patrona del Maresme con una fachada al estilo Shrek y mucha facilidad para aparcar.</p>
+                <p class="lugar-desc" data-i18n="ceremonia-desc">El santuario de la patrona del Maresme con una fachada al estilo Shrek y mucha facilidad para aparcar.</p>
                 <div class="lugar-divider"></div>
                 <p class="lugar-dir">Canet de Mar, Barcelona</p>
                 <a href="https://maps.app.goo.gl/fpTmWDNyvoFaHUyE6"
                    target="_blank" rel="noopener" class="lugar-mapa">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                    Ver en el mapa
+                    <span data-i18n="mapa-text">Ver en el mapa</span>
                 </a>
             </div>
 
@@ -927,19 +962,19 @@
             </div>
 
             <div class="lugar-card">
-                <span class="lugar-badge">Convite</span>
+                <span class="lugar-badge" data-i18n="convite-badge">Convite</span>
                 <div class="lugar-nombre">Restaurante El Serrat de l'Ametlla</div>
                 <div class="lugar-foto">
                     <img src="fotos/lugar-convite.png" alt="Restaurante El Serrat de l'Ametlla">
                 </div>
-                <div class="lugar-hora">Hasta las 23:30h aprox.</div>
-                <p class="lugar-desc">Una masía en lo alto del Vallès con vistas increíbles.</p>
+                <div class="lugar-hora" data-i18n="convite-hora">Hasta las 23:30h aprox.</div>
+                <p class="lugar-desc" data-i18n="convite-desc">Una masía en lo alto del Vallès con vistas increíbles.</p>
                 <div class="lugar-divider"></div>
                 <p class="lugar-dir">L'Ametlla del Vallès, Barcelona</p>
                 <a href="https://maps.google.com/?q=Restaurant+El+Serrat+Ametlla+del+Valles"
                    target="_blank" rel="noopener" class="lugar-mapa">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                    Ver en el mapa
+                    <span data-i18n="mapa-text">Ver en el mapa</span>
                 </a>
             </div>
         </div>
@@ -951,13 +986,13 @@
     <div class="container">
         <div class="historia-grid">
             <div class="historia-texto">
-                <h2><em>Lo más importante</em></h2>
+                <h2 data-i18n-html="historia-h2"><em>Lo más importante</em></h2>
                 <div class="divider"><span>✦</span></div>
 
-                <p>Está siendo muy fácil distraernos. Entre la música, los menús, Capitán Tekifresa (no habrá), el DJ y todo lo que envuelve ese día, es fácil perder el foco.</p>
-                <p>Vamos a tomar la decisión de estar juntos para toda la vida, Dios mediante, y todo lo demás será para celebrar precisamente eso que acabará de ocurrir.</p>
-                <p>Queremos que el día no pierda de vista lo que realmente es: el inicio de una nueva familia. La decisión más importante de nuestra vida.</p>
-                <p>Y nos ilusiona que vosotros seáis los primeros testigos de ese momento y poder celebrarlo juntos por todo lo alto.</p>
+                <p data-i18n="historia-p1">Está siendo muy fácil distraernos. Entre la música, los menús, Capitán Tekifresa (no habrá), el DJ y todo lo que envuelve ese día, es fácil perder el foco.</p>
+                <p data-i18n="historia-p2">Vamos a tomar la decisión de estar juntos para toda la vida, Dios mediante, y todo lo demás será para celebrar precisamente eso que acabará de ocurrir.</p>
+                <p data-i18n="historia-p3">Queremos que el día no pierda de vista lo que realmente es: el inicio de una nueva familia. La decisión más importante de nuestra vida.</p>
+                <p data-i18n="historia-p4">Y nos ilusiona que vosotros seáis los primeros testigos de ese momento y poder celebrarlo juntos por todo lo alto.</p>
             </div>
 
         </div>
@@ -974,22 +1009,22 @@
         <div class="galeria-cd">
             <div class="galeria-cd-unit">
                 <span class="galeria-cd-num" data-cd="dias">--</span>
-                <span class="galeria-cd-lbl">Días</span>
+                <span class="galeria-cd-lbl" data-i18n="cd-dias">Días</span>
             </div>
             <span class="galeria-cd-sep">:</span>
             <div class="galeria-cd-unit">
                 <span class="galeria-cd-num" data-cd="horas">--</span>
-                <span class="galeria-cd-lbl">Horas</span>
+                <span class="galeria-cd-lbl" data-i18n="cd-horas">Horas</span>
             </div>
             <span class="galeria-cd-sep">:</span>
             <div class="galeria-cd-unit">
                 <span class="galeria-cd-num" data-cd="minutos">--</span>
-                <span class="galeria-cd-lbl">Min</span>
+                <span class="galeria-cd-lbl" data-i18n="cd-minutos">Min</span>
             </div>
             <span class="galeria-cd-sep">:</span>
             <div class="galeria-cd-unit">
                 <span class="galeria-cd-num" data-cd="segundos">--</span>
-                <span class="galeria-cd-lbl">Seg</span>
+                <span class="galeria-cd-lbl" data-i18n="cd-segundos">Seg</span>
             </div>
         </div>
     </div>
@@ -1050,78 +1085,78 @@
 <section id="rsvp">
     <div class="container">
         <div class="rsvp-wrap">
-            <h2>Confirmación <em>de asistencia</em></h2>
+            <h2 data-i18n-html="rsvp-h2">Confirmación <em>de asistencia</em></h2>
             <div class="divider"><span>✦</span></div>
-            <p>Rellenar un formulario por cada invitado. Muchas gracias!!</p>
+            <p data-i18n="rsvp-intro">Rellenar un formulario por cada invitado. Muchas gracias!!</p>
 
             <form id="rsvp-form">
 
                 <div class="form-group">
-                    <label for="nombre">Nombre completo *</label>
+                    <label for="nombre" data-i18n="label-nombre">Nombre completo *</label>
                     <input type="text" id="nombre" name="entry.1518158490"
-                           placeholder="Tu nombre y apellidos" required>
+                           placeholder="Tu nombre y apellidos" data-i18n-ph="ph-nombre" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="telefono">Teléfono</label>
+                    <label for="telefono" data-i18n="label-telefono">Teléfono</label>
                     <input type="tel" id="telefono" name="entry.114387047"
-                           placeholder="Tu número de teléfono">
+                           placeholder="Tu número de teléfono" data-i18n-ph="ph-telefono">
                 </div>
 
                 <div class="form-group">
-                    <label>Confirmar asistencia *</label>
+                    <label data-i18n="label-asist">Confirmar asistencia *</label>
                     <div class="radio-group">
                         <label class="radio-label">
                             <input type="radio" name="entry.260951586" value="Sí, a todo!" required>
-                            <span>✅ Sí, a todo!</span>
+                            <span data-i18n="radio-si">✅ Sí, a todo!</span>
                         </label>
                         <label class="radio-label">
                             <input type="radio" name="entry.260951586" value="Solo iglesia">
-                            <span>⛪️ Solo iglesia</span>
+                            <span data-i18n="radio-iglesia">⛪️ Solo iglesia</span>
                         </label>
                         <label class="radio-label">
                             <input type="radio" name="entry.260951586" value="Me iré después del aperitivo">
-                            <span>🥂 Me iré después del aperitivo</span>
+                            <span data-i18n="radio-aperitivo">🥂 Me iré después del aperitivo</span>
                         </label>
                         <label class="radio-label">
                             <input type="radio" name="entry.260951586" value="No puedo venir / no me dejan">
-                            <span>❌ No puedo venir / no me dejan</span>
+                            <span data-i18n="radio-no">❌ No puedo venir / no me dejan</span>
                         </label>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="alergias">Alergias e intolerancias</label>
+                    <label for="alergias" data-i18n="label-alergias">Alergias e intolerancias</label>
                     <input type="text" id="alergias" name="entry.410049122"
-                           placeholder="Ej: gluten, vegetariano... (dejar vacío si no hay)">
+                           placeholder="Ej: gluten, vegetariano... (dejar vacío si no hay)" data-i18n-ph="ph-alergias">
                 </div>
 
                 <div class="form-group">
-                    <label>¿Necesitarás desplazarte en Autobús? <span style="font-size:0.82em; color:var(--texto-suave)">(Salida y vuelta: Plaça Francesc Macià)</span></label>
+                    <label data-i18n-html="label-bus">¿Necesitarás desplazarte en Autobús? <span style="font-size:0.82em; color:var(--texto-suave)">(Salida y vuelta: Plaça Francesc Macià)</span></label>
                     <div class="radio-group">
                         <label class="radio-label">
                             <input type="radio" name="entry.1025045433" value="Sí">
-                            <span>🚌 Sí</span>
+                            <span data-i18n="radio-bus-si">🚌 Sí</span>
                         </label>
                         <label class="radio-label">
                             <input type="radio" name="entry.1025045433" value="Iré con mi coche o en el coche de alguien.">
-                            <span>🚗 Iré con mi coche o en el coche de alguien</span>
+                            <span data-i18n="radio-bus-no">🚗 Iré con mi coche o en el coche de alguien</span>
                         </label>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="mensaje">Si quieres, escribe algo para hacer más amena la lectura de respuestas 💌</label>
+                    <label for="mensaje" data-i18n="label-mensaje">Si quieres, escribe algo para hacer más amena la lectura de respuestas 💌</label>
                     <textarea id="mensaje" name="entry.628209079"
-                              placeholder="Un deseo, una canción, lo que quieras decirnos..."></textarea>
+                              placeholder="Un deseo, una canción, lo que quieras decirnos..." data-i18n-ph="ph-mensaje"></textarea>
                 </div>
 
-                <button type="submit" class="btn-submit">Enviar confirmación</button>
+                <button type="submit" class="btn-submit" data-i18n="btn-submit">Enviar confirmación</button>
             </form>
 
             <div id="success-msg">
                 <span class="success-emoji">🥂</span>
-                <p>Muchas gracias por confirmar tu asistencia o tu ausencia. Tenemos muchas ganas de verte o te echaremos de menos.</p>
+                <p data-i18n="success-p">Muchas gracias por confirmar tu asistencia o tu ausencia. Tenemos muchas ganas de verte o te echaremos de menos.</p>
             </div>
         </div>
     </div>
@@ -1131,14 +1166,14 @@
 <section id="regalo">
     <div class="container">
         <div class="regalo-wrap">
-            <span class="section-tag">El regalo</span>
-            <h2><em>Si te apetece</em></h2>
+            <span class="section-tag" data-i18n="regalo-tag">El regalo</span>
+            <h2 data-i18n-html="regalo-h2"><em>Si te apetece</em></h2>
             <div class="divider"><span>✦</span></div>
-            <p class="regalo-texto">
+            <p class="regalo-texto" data-i18n="regalo-texto">
                 No queremos "cubrir cubiertos". La familia Prats Farreras va a empezar de cero y si te hiciera ilusión ayudarnos, sea de la forma que sea, podremos seguir diciendo que Dios proveerá.
             </p>
             <span class="regalo-cuenta" id="iban" title="Haz clic para copiar">ES8000812716940022792295</span>
-            <span class="regalo-copy-hint" id="copy-hint">Toca para copiar</span>
+            <span class="regalo-copy-hint" id="copy-hint" data-i18n="copy-hint">Toca para copiar</span>
         </div>
     </div>
 </section>
@@ -1147,30 +1182,30 @@
 <section id="faq">
     <div class="container">
         <div style="text-align:center">
-            <h2>Preguntas <em>frecuentes</em></h2>
+            <h2 data-i18n-html="faq-h2">Preguntas <em>frecuentes</em></h2>
             <div class="divider"><span>✦</span></div>
         </div>
 
         <div class="faq-list">
             <div class="faq-item">
-                <button class="faq-pregunta">¿Cómo vais con los preparativos? <span class="faq-icon">+</span></button>
-                <div class="faq-respuesta"><p>Muy bien, pasa todo volando. Siempre hay cosas por hacer pero estamos contentos.</p></div>
+                <button class="faq-pregunta"><span data-i18n="faq-q1">¿Cómo vais con los preparativos?</span> <span class="faq-icon">+</span></button>
+                <div class="faq-respuesta"><p data-i18n="faq-a1">Muy bien, pasa todo volando. Siempre hay cosas por hacer pero estamos contentos.</p></div>
             </div>
             <div class="faq-item">
-                <button class="faq-pregunta">¿Quién cantará en la boda? <span class="faq-icon">+</span></button>
-                <div class="faq-respuesta"><p>A nuestras familias les encanta la música y cantar. Lo dejaremos en sus manos.</p></div>
+                <button class="faq-pregunta"><span data-i18n="faq-q2">¿Quién cantará en la boda?</span> <span class="faq-icon">+</span></button>
+                <div class="faq-respuesta"><p data-i18n="faq-a2">A nuestras familias les encanta la música y cantar. Lo dejaremos en sus manos.</p></div>
             </div>
             <div class="faq-item">
-                <button class="faq-pregunta">¿Dónde os vais de luna de miel? <span class="faq-icon">+</span></button>
-                <div class="faq-respuesta"><p>Nos vamos a Costa Rica. Mochila, coche y a dar vueltas por el país viendo animales y naturaleza.</p></div>
+                <button class="faq-pregunta"><span data-i18n="faq-q3">¿Dónde os vais de luna de miel?</span> <span class="faq-icon">+</span></button>
+                <div class="faq-respuesta"><p data-i18n="faq-a3">Nos vamos a Costa Rica. Mochila, coche y a dar vueltas por el país viendo animales y naturaleza.</p></div>
             </div>
             <div class="faq-item">
-                <button class="faq-pregunta">¿Estáis nerviosos? <span class="faq-icon">+</span></button>
-                <div class="faq-respuesta"><p>De momento no, pero todo llegará, seguro, a medida que se acerca la fecha!!</p></div>
+                <button class="faq-pregunta"><span data-i18n="faq-q4">¿Estáis nerviosos?</span> <span class="faq-icon">+</span></button>
+                <div class="faq-respuesta"><p data-i18n="faq-a4">De momento no, pero todo llegará, seguro, a medida que se acerca la fecha!!</p></div>
             </div>
             <div class="faq-item">
-                <button class="faq-pregunta">¿Os casáis un domingo? <span class="faq-icon">+</span></button>
-                <div class="faq-respuesta"><p>Así es, el lunes es fiesta en todo el Estado. Contará como misa de domingo.</p></div>
+                <button class="faq-pregunta"><span data-i18n="faq-q5">¿Os casáis un domingo?</span> <span class="faq-icon">+</span></button>
+                <div class="faq-respuesta"><p data-i18n="faq-a5">Así es, el lunes es fiesta en todo el Estado. Contará como misa de domingo.</p></div>
             </div>
         </div>
     </div>
@@ -1329,10 +1364,121 @@
     document.getElementById('iban').addEventListener('click', function () {
         navigator.clipboard.writeText('ES8000812716940022792295').then(() => {
             const hint = document.getElementById('copy-hint');
-            hint.textContent = '¡Copiado!';
-            setTimeout(() => { hint.textContent = 'Toca para copiar'; }, 2000);
+            hint.textContent = LANG[currentLang]['copied'];
+            setTimeout(() => { hint.textContent = LANG[currentLang]['copy-hint']; }, 2000);
         });
     });
+
+    // ── 8. IDIOMA (ES / CA) ──────────────────────────────────
+    const LANG = {
+        es: {
+            'nav-dia':'El día','nav-importante':'Importante','nav-regalo':'Regalo',
+            'evento-h2':'Dónde y cuándo',
+            'ceremonia-badge':'Ceremonia',
+            'ceremonia-desc':'El santuario de la patrona del Maresme con una fachada al estilo Shrek y mucha facilidad para aparcar.',
+            'convite-badge':'Convite','convite-hora':'Hasta las 23:30h aprox.',
+            'convite-desc':'Una masía en lo alto del Vallès con vistas increíbles.',
+            'mapa-text':'Ver en el mapa',
+            'historia-h2':'<em>Lo más importante</em>',
+            'historia-p1':'Está siendo muy fácil distraernos. Entre la música, los menús, Capitán Tekifresa (no habrá), el DJ y todo lo que envuelve ese día, es fácil perder el foco.',
+            'historia-p2':'Vamos a tomar la decisión de estar juntos para toda la vida, Dios mediante, y todo lo demás será para celebrar precisamente eso que acabará de ocurrir.',
+            'historia-p3':'Queremos que el día no pierda de vista lo que realmente es: el inicio de una nueva familia. La decisión más importante de nuestra vida.',
+            'historia-p4':'Y nos ilusiona que vosotros seáis los primeros testigos de ese momento y poder celebrarlo juntos por todo lo alto.',
+            'cd-dias':'Días','cd-horas':'Horas','cd-minutos':'Min','cd-segundos':'Seg',
+            'rsvp-h2':'Confirmación <em>de asistencia</em>',
+            'rsvp-intro':'Rellenar un formulario por cada invitado. Muchas gracias!!',
+            'label-nombre':'Nombre completo *','ph-nombre':'Tu nombre y apellidos',
+            'label-telefono':'Teléfono','ph-telefono':'Tu número de teléfono',
+            'label-asist':'Confirmar asistencia *',
+            'radio-si':'✅ Sí, a todo!','radio-iglesia':'⛪️ Solo iglesia',
+            'radio-aperitivo':'🥂 Me iré después del aperitivo',
+            'radio-no':'❌ No puedo venir / no me dejan',
+            'label-alergias':'Alergias e intolerancias',
+            'ph-alergias':'Ej: gluten, vegetariano... (dejar vacío si no hay)',
+            'label-bus':'¿Necesitarás desplazarte en Autobús? <span style="font-size:0.82em;color:var(--texto-suave)">(Salida y vuelta: Plaça Francesc Macià)</span>',
+            'radio-bus-si':'🚌 Sí','radio-bus-no':'🚗 Iré con mi coche o en el coche de alguien',
+            'label-mensaje':'Si quieres, escribe algo para hacer más amena la lectura de respuestas 💌',
+            'ph-mensaje':'Un deseo, una canción, lo que quieras decirnos...',
+            'btn-submit':'Enviar confirmación',
+            'success-p':'Muchas gracias por confirmar tu asistencia o tu ausencia. Tenemos muchas ganas de verte o te echaremos de menos.',
+            'regalo-tag':'El regalo','regalo-h2':'<em>Si te apetece</em>',
+            'regalo-texto':'No queremos "cubrir cubiertos". La familia Prats Farreras va a empezar de cero y si te hiciera ilusión ayudarnos, sea de la forma que sea, podremos seguir diciendo que Dios proveerá.',
+            'copy-hint':'Toca para copiar','copied':'¡Copiado!',
+            'faq-h2':'Preguntas <em>frecuentes</em>',
+            'faq-q1':'¿Cómo vais con los preparativos?','faq-a1':'Muy bien, pasa todo volando. Siempre hay cosas por hacer pero estamos contentos.',
+            'faq-q2':'¿Quién cantará en la boda?','faq-a2':'A nuestras familias les encanta la música y cantar. Lo dejaremos en sus manos.',
+            'faq-q3':'¿Dónde os vais de luna de miel?','faq-a3':'Nos vamos a Costa Rica. Mochila, coche y a dar vueltas por el país viendo animales y naturaleza.',
+            'faq-q4':'¿Estáis nerviosos?','faq-a4':'De momento no, pero todo llegará, seguro, a medida que se acerca la fecha!!',
+            'faq-q5':'¿Os casáis un domingo?','faq-a5':'Así es, el lunes es fiesta en todo el Estado. Contará como misa de domingo.',
+        },
+        ca: {
+            'nav-dia':'El dia','nav-importante':'Important','nav-regalo':'Regal',
+            'evento-h2':'On i quan',
+            'ceremonia-badge':'Cerimònia',
+            'ceremonia-desc':"El santuari de la patrona del Maresme amb una façana a l'estil Shrek i molta facilitat per aparcar.",
+            'convite-badge':'Convit','convite-hora':'Fins a les 23:30h aprox.',
+            'convite-desc':'Una masia al cim del Vallès amb vistes increïbles.',
+            'mapa-text':'Veure al mapa',
+            'historia-h2':'<em>El més important</em>',
+            'historia-p1':"Està sent molt fàcil distreure'ns. Entre la música, els menús, el Capità Tekifresa (no hi haurà), el DJ i tot el que envolta aquell dia, és fàcil perdre el focus.",
+            'historia-p2':"Prendrem la decisió d'estar junts per a tota la vida, Déu volent, i tot el demés serà per celebrar precisament allò que acabarà de passar.",
+            'historia-p3':"Volem que el dia no perdi de vista el que realment és: l'inici d'una nova família. La decisió més important de la nostra vida.",
+            'historia-p4':"I ens fa il·lusió que vosaltres sigueu els primers testimonis d'aquell moment i poder celebrar-lo junts per tot l'alt.",
+            'cd-dias':'Dies','cd-horas':'Hores','cd-minutos':'Min','cd-segundos':'Seg',
+            'rsvp-h2':"Confirmació <em>d'assistència</em>",
+            'rsvp-intro':'Omplir un formulari per cada convidat. Moltes gràcies!!',
+            'label-nombre':'Nom complet *','ph-nombre':'El teu nom i cognoms',
+            'label-telefono':'Telèfon','ph-telefono':'El teu número de telèfon',
+            'label-asist':'Confirmar assistència *',
+            'radio-si':'✅ Sí, a tot!','radio-iglesia':"⛪️ Només l'església",
+            'radio-aperitivo':"🥂 Me n'aniré després de l'aperitiu",
+            'radio-no':'❌ No puc venir / no em deixen',
+            'label-alergias':'Al·lèrgies i intoleràncies',
+            'ph-alergias':"Ex: gluten, vegetarià... (deixar buit si no n'hi ha)",
+            'label-bus':'Necessitaràs desplaçar-te en Autobús? <span style="font-size:0.82em;color:var(--texto-suave)">(Sortida i tornada: Plaça Francesc Macià)</span>',
+            'radio-bus-si':'🚌 Sí','radio-bus-no':"🚗 Aniré amb el meu cotxe o en el cotxe d'algú",
+            'label-mensaje':'Si vols, escriu alguna cosa per fer més amena la lectura de respostes 💌',
+            'ph-mensaje':'Un desig, una cançó, el que ens vulguis dir...',
+            'btn-submit':'Enviar confirmació',
+            'success-p':"Moltes gràcies per confirmar la teva assistència o la teva absència. Tenim moltes ganes de veure't o t'enyorarem.",
+            'regalo-tag':'El regal','regalo-h2':"<em>Si t'apeteix</em>",
+            'regalo-texto':'No volem “cobrir coberts”. La família Prats Farreras va a començar de zero i si et fes il·lusió ajudar-nos, sigui de la forma que sigui, podrem seguir dient que Déu proveirà.',
+            'copy-hint':'Toca per copiar','copied':'Copiat!',
+            'faq-h2':'Preguntes <em>freqüents</em>',
+            'faq-q1':'Com aneu amb els preparatius?','faq-a1':'Molt bé, tot passa volant. Sempre hi ha coses per fer però estem contents.',
+            'faq-q2':'Qui cantarà al casament?','faq-a2':'A les nostres famílies els encanta la música i cantar. Ho deixarem en les seves mans.',
+            'faq-q3':'On aneu de lluna de mel?','faq-a3':'Anem a Costa Rica. Motxilla, cotxe i a voltar pel país veient animals i natura.',
+            'faq-q4':'Esteu nerviosos?','faq-a4':"De moment no, però tot arribarà, segur, a mesura que s'acosta la data!!",
+            'faq-q5':'Us caseu un diumenge?','faq-a5':'Així és, el dilluns és festa a tot l\'Estat. Comptarà com a missa de diumenge.',
+        }
+    };
+
+    let currentLang = localStorage.getItem('lang') || 'es';
+
+    function applyLang(lang) {
+        currentLang = lang;
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const v = LANG[lang][el.dataset.i18n];
+            if (v != null) el.textContent = v;
+        });
+        document.querySelectorAll('[data-i18n-html]').forEach(el => {
+            const v = LANG[lang][el.dataset.i18nHtml];
+            if (v != null) el.innerHTML = v;
+        });
+        document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+            const v = LANG[lang][el.dataset.i18nPh];
+            if (v != null) el.placeholder = v;
+        });
+        document.querySelectorAll('.lang-btn').forEach(btn =>
+            btn.classList.toggle('active', btn.dataset.lang === lang));
+        localStorage.setItem('lang', lang);
+        document.documentElement.lang = lang;
+    }
+
+    document.querySelectorAll('.lang-btn').forEach(btn =>
+        btn.addEventListener('click', () => applyLang(btn.dataset.lang)));
+
+    applyLang(currentLang);
 
     // ── 6. ACORDEÓN FAQ ──────────────────────────────────────
     document.querySelectorAll('.faq-pregunta').forEach(btn => {
