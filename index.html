@@ -1212,9 +1212,15 @@
                 body:   new FormData(form)
             });
 
-            // Mostramos éxito (no-cors no devuelve error aunque falle, así que asumimos OK)
+            // Mostramos éxito y hacemos scroll para ver el agradecimiento + sección de regalo
             form.style.display = 'none';
-            document.getElementById('success-msg').style.display = 'block';
+            const successEl = document.getElementById('success-msg');
+            successEl.style.display = 'block';
+            setTimeout(() => {
+                const navH = document.getElementById('navbar').offsetHeight;
+                const top = successEl.getBoundingClientRect().top + window.scrollY - navH - 24;
+                window.scrollTo({ top, behavior: 'smooth' });
+            }, 80);
 
         } catch {
             alert('Hubo un problema de red. ¡Inténtalo de nuevo!');
