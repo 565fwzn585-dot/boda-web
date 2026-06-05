@@ -184,7 +184,7 @@
             transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .carousel-slide {
-            min-width: calc(100% - 64px);
+            min-width: calc(100% - 80px);
             margin: 0 8px;
             height: 100%;
             overflow: hidden;
@@ -1287,7 +1287,7 @@
             }
         }, { passive: true });
 
-        resetTimer();
+        goTo(0); // establece posición inicial centrada (y arranca el timer vía goTo→resetTimer)
     })();
 
     // ── 5. COPIAR IBAN AL PORTAPAPELES ──────────────────────
