@@ -733,12 +733,26 @@
 
         #success-msg {
             display: none;
-            padding: 2.5rem;
+            padding: 3rem 2.5rem;
             background: var(--verde-muy-claro);
             border: 1px solid var(--verde-claro);
-            border-radius: 14px;
+            border-radius: 16px;
+            text-align: center;
         }
-        #success-msg p { color: var(--texto-medio); margin: 0; }
+        #success-msg .success-emoji {
+            display: block;
+            font-size: 2.8rem;
+            margin-bottom: 1.2rem;
+            line-height: 1;
+        }
+        #success-msg p {
+            color: var(--texto-medio);
+            margin: 0;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            max-width: 420px;
+            margin: 0 auto;
+        }
 
         /* ══════════════════════════════
            FOOTER
@@ -1011,7 +1025,7 @@
             </form>
 
             <div id="success-msg">
-                <p style="font-size:2rem; margin-bottom:0.6rem">🥂</p>
+                <span class="success-emoji">🥂</span>
                 <p>Muchas gracias por confirmar tu asistencia o tu ausencia. Tenemos muchas ganas de verte o te echaremos de menos.</p>
             </div>
         </div>
