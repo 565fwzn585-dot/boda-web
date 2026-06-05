@@ -184,8 +184,8 @@
             transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .carousel-slide {
-            min-width: calc(100% - 32px);
-            margin: 0 16px;
+            min-width: calc(100% - 64px);
+            margin: 0 8px;
             height: 100%;
             overflow: hidden;
             background: var(--crema);
@@ -276,14 +276,14 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.38);
+            background: rgba(122, 159, 118, 0.35);
             border: none;
             cursor: pointer;
             transition: background 0.25s, transform 0.25s;
             padding: 0;
         }
         .carousel-dot.active {
-            background: rgba(255,255,255,0.9);
+            background: var(--verde-sage);
             transform: scale(1.4);
         }
 
@@ -1232,20 +1232,36 @@
         }
 
         function goTo(n) {
-            const max = isDesktop() ? Math.max(0, total - 3) : total - 1;
+            const isDesk = isDesktop();
+            const max = isDesk ? Math.max(0, total - 3) : total - 1;
             current = ((n % (max + 1)) + (max + 1)) % (max + 1);
-            const pct = isDesktop() ? 100 / 3 : 100;
-            track.style.transform = `translateX(-${current * pct}%)`;
+
+            if (isDesk) {
+                track.style.transform = `translateX(-${current * 100 / 3}%)`;
+            } else {
+                // Calcula offset en píxeles para centrar la foto activa y mostrar peek de las adyacentes
+                const slide = track.querySelector('.carousel-slide');
+                const slideStyle = getComputedStyle(slide);
+                const slideBox = slide.offsetWidth;
+                const mL = parseFloat(slideStyle.marginLeft);
+                const mR = parseFloat(slideStyle.marginRight);
+                const trackW = track.offsetWidth;
+                const slideSlot = slideBox + mL + mR;
+                const initOffset = (trackW - slideBox) / 2 - mL;
+                track.style.transform = `translateX(${initOffset - current * slideSlot}px)`;
+            }
+
             dotsEl.querySelectorAll('.carousel-dot').forEach((d, i) =>
                 d.classList.toggle('active', i === current));
             resetTimer();
         }
 
-        // Reset al cambiar de móvil a escritorio o viceversa
+        // Reset al cambiar breakpoint o al rotar el dispositivo
         let wasDesktop = isDesktop();
         window.addEventListener('resize', () => {
             const nowDesktop = isDesktop();
             if (nowDesktop !== wasDesktop) { wasDesktop = nowDesktop; goTo(0); }
+            else { goTo(current); }
         });
 
         function resetTimer() {
