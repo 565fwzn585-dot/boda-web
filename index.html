@@ -939,7 +939,7 @@
                     <img src="fotos/lugar-ceremonia.png" alt="Santuari de la Mare de Déu de la Misericòrdia">
                 </div>
                 <div class="lugar-hora">12:30h</div>
-                <p class="lugar-desc" data-i18n="ceremonia-desc">El santuario de la patrona del Maresme con una fachada al estilo Shrek y mucha facilidad para aparcar.</p>
+                <p class="lugar-desc" data-i18n="ceremonia-desc">El santuario de la patrona del Maresme con una fachada al estilo Shrek y muy fácil de aparcar.</p>
                 <div class="lugar-divider"></div>
                 <p class="lugar-dir">Canet de Mar, Barcelona</p>
                 <a href="https://maps.app.goo.gl/fpTmWDNyvoFaHUyE6"
@@ -1170,7 +1170,7 @@
             <h2 data-i18n-html="regalo-h2"><em>Si te apetece</em></h2>
             <div class="divider"><span>✦</span></div>
             <p class="regalo-texto" data-i18n="regalo-texto">
-                No queremos "cubrir cubiertos". La familia Prats Farreras va a empezar de cero y si te hiciera ilusión ayudarnos, sea de la forma que sea, podremos seguir diciendo que Dios proveerá.
+                No queremos "cubrir cubiertos". La familia Prats Farreras va a empezar de cero y, si te hiciera ilusión echarnos una mano de la forma que sea, nos ayudarás a seguir comprobando que, una vez más, Dios provee.
             </p>
             <span class="regalo-cuenta" id="iban" title="Haz clic para copiar">ES8000812716940022792295</span>
             <span class="regalo-copy-hint" id="copy-hint" data-i18n="copy-hint">Toca para copiar</span>
@@ -1205,7 +1205,7 @@
             </div>
             <div class="faq-item">
                 <button class="faq-pregunta"><span data-i18n="faq-q5">¿Os casáis un domingo?</span> <span class="faq-icon">+</span></button>
-                <div class="faq-respuesta"><p data-i18n="faq-a5">Así es, el lunes es fiesta en todo el Estado. Contará como misa de domingo.</p></div>
+                <div class="faq-respuesta"><p data-i18n="faq-a5">Así es, el lunes es fiesta en todo el Estado. Valdrá como misa de domingo.</p></div>
             </div>
         </div>
     </div>
@@ -1264,7 +1264,6 @@
         const origSlides = Array.from(track.querySelectorAll('.carousel-slide'));
         const total  = origSlides.length;
         let current  = 0;
-        let timer;
 
         if (total === 0) return;
 
@@ -1303,17 +1302,11 @@
             current = ((n % total) + total) % total;
             track.scrollTo({ left: scrollPosFor(total + current), behavior: smooth ? 'smooth' : 'instant' });
             updateDots();
-            resetTimer();
         }
 
         function updateDots() {
             dotsEl.querySelectorAll('.carousel-dot').forEach((d, i) =>
                 d.classList.toggle('active', i === current));
-        }
-
-        function resetTimer() {
-            clearInterval(timer);
-            timer = setInterval(() => goTo(current + 1), 5000);
         }
 
         // Detectar cuándo el scroll llega a los clones y saltar sin animación
@@ -1356,7 +1349,6 @@
         // Posición inicial (primer slide original, sin animación)
         requestAnimationFrame(() => {
             track.scrollLeft = scrollPosFor(total);
-            resetTimer();
         });
     })();
 
@@ -1375,7 +1367,7 @@
             'nav-dia':'El día','nav-importante':'Importante','nav-regalo':'Regalo',
             'evento-h2':'Dónde y cuándo',
             'ceremonia-badge':'Ceremonia',
-            'ceremonia-desc':'El santuario de la patrona del Maresme con una fachada al estilo Shrek y mucha facilidad para aparcar.',
+            'ceremonia-desc':'El santuario de la patrona del Maresme con una fachada al estilo Shrek y muy fácil de aparcar.',
             'convite-badge':'Convite','convite-hora':'Hasta las 23:30h aprox.',
             'convite-desc':'Una masía en lo alto del Vallès con vistas increíbles.',
             'mapa-text':'Ver en el mapa',
@@ -1395,21 +1387,21 @@
             'radio-no':'❌ No puedo venir / no me dejan',
             'label-alergias':'Alergias e intolerancias',
             'ph-alergias':'Ej: gluten, vegetariano... (dejar vacío si no hay)',
-            'label-bus':'¿Necesitarás desplazarte en Autobús? <span style="font-size:0.82em;color:var(--texto-suave)">(Salida y vuelta: Plaça Francesc Macià)</span>',
+            'label-bus':'¿Vendrás en autobús? <span style="font-size:0.82em;color:var(--texto-suave)">(Salida y vuelta: Plaça Francesc Macià)</span>',
             'radio-bus-si':'🚌 Sí','radio-bus-no':'🚗 Iré con mi coche o en el coche de alguien',
             'label-mensaje':'Si quieres, escribe algo para hacer más amena la lectura de respuestas 💌',
             'ph-mensaje':'Un deseo, una canción, lo que quieras decirnos...',
             'btn-submit':'Enviar confirmación',
             'success-p':'Muchas gracias por confirmar tu asistencia o tu ausencia. Tenemos muchas ganas de verte o te echaremos de menos.',
             'regalo-tag':'El regalo','regalo-h2':'<em>Si te apetece</em>',
-            'regalo-texto':'No queremos "cubrir cubiertos". La familia Prats Farreras va a empezar de cero y si te hiciera ilusión ayudarnos, sea de la forma que sea, podremos seguir diciendo que Dios proveerá.',
+            'regalo-texto':'No queremos "cubrir cubiertos". La familia Prats Farreras va a empezar de cero y, si te hiciera ilusión echarnos una mano de la forma que sea, nos ayudarás a seguir comprobando que, una vez más, Dios provee.',
             'copy-hint':'Toca para copiar','copied':'¡Copiado!',
             'faq-h2':'Preguntas <em>frecuentes</em>',
             'faq-q1':'¿Cómo vais con los preparativos?','faq-a1':'Muy bien, pasa todo volando. Siempre hay cosas por hacer pero estamos contentos.',
             'faq-q2':'¿Quién cantará en la boda?','faq-a2':'A nuestras familias les encanta la música y cantar. Lo dejaremos en sus manos.',
             'faq-q3':'¿Dónde os vais de luna de miel?','faq-a3':'Nos vamos a Costa Rica. Mochila, coche y a dar vueltas por el país viendo animales y naturaleza.',
             'faq-q4':'¿Estáis nerviosos?','faq-a4':'De momento no, pero todo llegará, seguro, a medida que se acerca la fecha!!',
-            'faq-q5':'¿Os casáis un domingo?','faq-a5':'Así es, el lunes es fiesta en todo el Estado. Contará como misa de domingo.',
+            'faq-q5':'¿Os casáis un domingo?','faq-a5':'Así es, el lunes es fiesta en todo el Estado. Valdrá como misa de domingo.',
         },
         ca: {
             'nav-dia':'El dia','nav-importante':'Important','nav-regalo':'Regal',
@@ -1442,7 +1434,7 @@
             'btn-submit':'Enviar confirmació',
             'success-p':"Moltes gràcies per confirmar la teva assistència o la teva absència. Tenim moltes ganes de veure't o t'enyorarem.",
             'regalo-tag':'El regal','regalo-h2':"<em>Si t'apeteix</em>",
-            'regalo-texto':'No volem “cobrir coberts”. La família Prats Farreras va a començar de zero i si et fes il·lusió ajudar-nos, sigui de la forma que sigui, podrem seguir dient que Déu proveirà.',
+            'regalo-texto':'No volem “cobrir coberts”. La família Prats Farreras començarà de zero i, si et fes il·lusió donar-nos un cop de mà de la manera que sigui, ens ajudaràs a seguir comprovant que, una vegada més, Déu proveeix.',
             'copy-hint':'Toca per copiar','copied':'Copiat!',
             'faq-h2':'Preguntes <em>freqüents</em>',
             'faq-q1':'Com aneu amb els preparatius?','faq-a1':'Molt bé, tot passa volant. Sempre hi ha coses per fer però estem contents.',
