@@ -168,7 +168,7 @@
         ══════════════════════════════ */
         #galeria {
             padding: 0;
-            background: #0a120a;
+            background: var(--crema);
         }
         .carousel {
             position: relative;
@@ -184,40 +184,27 @@
             transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .carousel-slide {
-            min-width: 100%;
+            min-width: calc(100% - 32px);
+            margin: 0 16px;
             height: 100%;
             overflow: hidden;
-            background: #0a120a;
+            background: var(--crema);
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(78, 115, 73, 0.13);
         }
         .carousel-slide img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
+            object-position: center 30%;
             display: block;
+            border-radius: 18px;
         }
-        .carousel-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg,
-                rgba(10,18,8,0.12) 0%,
-                rgba(10,18,8,0.28) 50%,
-                rgba(10,18,8,0.52) 100%);
-            pointer-events: none;
-            z-index: 2;
-        }
-        .carousel-countdown {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            padding-top: 4%;
-            z-index: 5;
-            pointer-events: none;
-        }
+        .carousel-overlay { display: none; }
+        .carousel-countdown { display: none; }
         .countdown {
             display: flex;
             gap: 1rem;
@@ -257,11 +244,10 @@
             top: 50%;
             transform: translateY(-50%);
             z-index: 10;
-            background: rgba(255,255,255,0.14);
-            border: 1px solid rgba(255,255,255,0.28);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            color: white;
+            background: rgba(255,255,255,0.92);
+            border: 1px solid var(--borde);
+            color: var(--texto-suave);
+            box-shadow: 0 2px 14px rgba(78,115,73,0.12);
             font-size: 1.8rem;
             width: 50px;
             height: 50px;
@@ -274,7 +260,7 @@
             padding: 0;
             line-height: 1;
         }
-        .carousel-btn:hover { background: rgba(255,255,255,0.28); }
+        .carousel-btn:hover { background: #ffffff; }
         .carousel-prev { left: 1.5rem; }
         .carousel-next { right: 1.5rem; }
         .carousel-dots {
@@ -782,9 +768,9 @@
            GALERÍA DESKTOP — cuenta atrás + 3 fotos
         ══════════════════════════════ */
         .galeria-header {
-            display: none;
+            display: flex;
             background: var(--crema);
-            padding: 3.5rem 2rem 2rem;
+            padding: 2.5rem 1rem 1.5rem;
             justify-content: center;
         }
         .galeria-cd {
@@ -822,7 +808,7 @@
         }
 
         @media (min-width: 769px) {
-            .galeria-header { display: flex; }
+            .galeria-header { padding: 3.5rem 2rem 2rem; }
             #galeria { background: var(--crema); }
             .carousel {
                 height: 500px;
@@ -841,16 +827,7 @@
                 object-position: center 30%;
                 border-radius: 18px;
             }
-            .carousel-overlay  { display: none; }
-            .carousel-countdown { display: none; }
             .carousel-dots { display: none; }
-            .carousel-btn {
-                background: rgba(255,255,255,0.95);
-                border: 1px solid var(--borde);
-                color: var(--texto-suave);
-                box-shadow: 0 2px 14px rgba(78,115,73,0.12);
-            }
-            .carousel-btn:hover { background: #ffffff; }
         }
 
         /* ══════════════════════════════
@@ -865,14 +842,10 @@
             .evento-grid .ruta                   { grid-column: 1; grid-row: 2; margin-top: 0; }
             .evento-grid .lugar-card:last-child  { grid-column: 1; grid-row: 3; }
 
-            .carousel { height: 70vh; min-height: 400px; }
-            .carousel-slide img { object-fit: cover; object-position: center 30%; }
-            .carousel-countdown { padding-top: 5%; }
-            .cd-item { padding: 0.65rem 0.9rem; min-width: 64px; }
-            .countdown { gap: 0.55rem; }
+            .carousel { height: 62vh; min-height: 360px; }
             .carousel-btn { width: 38px; height: 38px; font-size: 1.3rem; }
-            .carousel-prev { left: 0.7rem; }
-            .carousel-next { right: 0.7rem; }
+            .carousel-prev { left: 0.2rem; }
+            .carousel-next { right: 0.2rem; }
 
             .form-row { grid-template-columns: 1fr; }
 
