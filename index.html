@@ -180,11 +180,15 @@
         .carousel-track {
             display: flex;
             height: 100%;
-            will-change: transform;
-            transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-x: scroll;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
         }
+        .carousel-track::-webkit-scrollbar { display: none; }
         .carousel-slide {
-            min-width: calc(100% - 80px);
+            min-width: 80%;
+            scroll-snap-align: center;
             margin: 0 8px;
             height: 100%;
             overflow: hidden;
@@ -828,6 +832,7 @@
                 border-radius: 18px;
             }
             .carousel-dots { display: none; }
+            .carousel-slide { scroll-snap-align: start; }
         }
 
         /* ══════════════════════════════
@@ -993,12 +998,12 @@
         <!-- Pista de fotos -->
         <div class="carousel-track" id="carouselTrack">
             <div class="carousel-slide"><img src="fotos/foto1.jpg" alt="Queralt y Edu"></div>
-            <div class="carousel-slide"><img src="fotos/foto2.jpg" alt="Queralt y Edu"></div>
             <div class="carousel-slide"><img src="fotos/foto4.jpg" alt="Queralt y Edu"></div>
             <div class="carousel-slide"><img src="fotos/foto5.jpg" alt="Queralt y Edu"></div>
             <div class="carousel-slide"><img src="fotos/foto6.jpg" alt="Queralt y Edu"></div>
             <div class="carousel-slide"><img src="fotos/foto7.jpg" alt="Queralt y Edu"></div>
             <div class="carousel-slide"><img src="fotos/foto8.jpg" alt="Queralt y Edu"></div>
+            <div class="carousel-slide"><img src="fotos/foto2.jpg" alt="Queralt y Edu"></div>
             <div class="carousel-slide"><img src="fotos/foto9.jpg" alt="Queralt y Edu"></div>
             <div class="carousel-slide"><img src="fotos/foto11.jpg" alt="Queralt y Edu"></div>
             <div class="carousel-slide"><img src="fotos/foto12.jpg" alt="Queralt y Edu"></div>
@@ -1217,17 +1222,24 @@
             window.scrollY > 40 ? '0 2px 20px rgba(78,115,73,0.12)' : 'none';
     });
 
-    // ── 3. CARRUSEL ──────────────────────────────────────
+    // ── 3. CARRUSEL (scroll infinito) ────────────────────
     (function () {
         const track  = document.getElementById('carouselTrack');
         const dotsEl = document.getElementById('carouselDots');
-        const slides = track.querySelectorAll('.carousel-slide');
-        const total  = slides.length;
+        const origSlides = Array.from(track.querySelectorAll('.carousel-slide'));
+        const total  = origSlides.length;
         let current  = 0;
         let timer;
 
-        // Crear puntos
-        slides.forEach((_, i) => {
+        if (total === 0) return;
+
+        // Clonar slides al inicio y al final para efecto infinito
+        origSlides.forEach(s => track.appendChild(s.cloneNode(true)));
+        origSlides.forEach(s => track.insertBefore(s.cloneNode(true), track.firstChild));
+        const all = Array.from(track.querySelectorAll('.carousel-slide'));
+
+        // Crear puntos indicadores (solo slides originales)
+        origSlides.forEach((_, i) => {
             const dot = document.createElement('button');
             dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
             dot.setAttribute('aria-label', 'Foto ' + (i + 1));
@@ -1235,67 +1247,82 @@
             dotsEl.appendChild(dot);
         });
 
-        function isDesktop() {
-            return window.matchMedia('(min-width: 769px)').matches;
+        function isDesktop() { return window.matchMedia('(min-width: 769px)').matches; }
+
+        function getSlot() {
+            const s = all[0];
+            const cs = getComputedStyle(s);
+            return s.offsetWidth + parseFloat(cs.marginLeft) + parseFloat(cs.marginRight);
         }
 
-        function goTo(n) {
-            const isDesk = isDesktop();
-            const max = isDesk ? Math.max(0, total - 3) : total - 1;
-            current = ((n % (max + 1)) + (max + 1)) % (max + 1);
+        // Posición de scroll para centrar (móvil) o alinear a la izquierda (escritorio) un slide por índice
+        function scrollPosFor(idx) {
+            const slot = getSlot();
+            const s = all[0];
+            const mL = parseFloat(getComputedStyle(s).marginLeft);
+            if (isDesktop()) return idx * slot;
+            return Math.max(0, idx * slot + mL - (track.clientWidth - s.offsetWidth) / 2);
+        }
 
-            if (isDesk) {
-                track.style.transform = `translateX(-${current * 100 / 3}%)`;
-            } else {
-                // Calcula offset en píxeles para centrar la foto activa y mostrar peek de las adyacentes
-                const slide = track.querySelector('.carousel-slide');
-                const slideStyle = getComputedStyle(slide);
-                const slideBox = slide.offsetWidth;
-                const mL = parseFloat(slideStyle.marginLeft);
-                const mR = parseFloat(slideStyle.marginRight);
-                const trackW = track.offsetWidth;
-                const slideSlot = slideBox + mL + mR;
-                const initOffset = (trackW - slideBox) / 2 - mL;
-                track.style.transform = `translateX(${initOffset - current * slideSlot}px)`;
-            }
-
-            dotsEl.querySelectorAll('.carousel-dot').forEach((d, i) =>
-                d.classList.toggle('active', i === current));
+        function goTo(n, smooth = true) {
+            current = ((n % total) + total) % total;
+            track.scrollTo({ left: scrollPosFor(total + current), behavior: smooth ? 'smooth' : 'instant' });
+            updateDots();
             resetTimer();
         }
 
-        // Reset al cambiar breakpoint o al rotar el dispositivo
-        let wasDesktop = isDesktop();
-        window.addEventListener('resize', () => {
-            const nowDesktop = isDesktop();
-            if (nowDesktop !== wasDesktop) { wasDesktop = nowDesktop; goTo(0); }
-            else { goTo(current); }
-        });
+        function updateDots() {
+            dotsEl.querySelectorAll('.carousel-dot').forEach((d, i) =>
+                d.classList.toggle('active', i === current));
+        }
 
         function resetTimer() {
             clearInterval(timer);
             timer = setInterval(() => goTo(current + 1), 5000);
         }
 
+        // Detectar cuándo el scroll llega a los clones y saltar sin animación
+        function onScrollEnd() {
+            const slot = getSlot();
+            const s = all[0];
+            const mL = parseFloat(getComputedStyle(s).marginLeft);
+            let idx = isDesktop()
+                ? Math.round(track.scrollLeft / slot)
+                : Math.round((track.scrollLeft - mL + (track.clientWidth - s.offsetWidth) / 2) / slot);
+            idx = Math.max(0, Math.min(idx, all.length - 1));
+
+            if (idx < total) {
+                track.scrollLeft = scrollPosFor(idx + total);
+                current = idx;
+            } else if (idx >= 2 * total) {
+                track.scrollLeft = scrollPosFor(idx - total);
+                current = idx - 2 * total;
+            } else {
+                current = idx - total;
+            }
+            updateDots();
+        }
+
+        if ('onscrollend' in track) {
+            track.addEventListener('scrollend', onScrollEnd);
+        } else {
+            let t;
+            track.addEventListener('scroll', () => { clearTimeout(t); t = setTimeout(onScrollEnd, 120); });
+        }
+
         document.querySelector('.carousel-prev').addEventListener('click', () => goTo(current - 1));
         document.querySelector('.carousel-next').addEventListener('click', () => goTo(current + 1));
 
-        // Soporte swipe táctil — solo horizontal, no interfiere con scroll vertical
-        let startX = 0, startY = 0;
-        const carousel = document.getElementById('carousel');
-        carousel.addEventListener('touchstart', e => {
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-        }, { passive: true });
-        carousel.addEventListener('touchend', e => {
-            const dx = startX - e.changedTouches[0].clientX;
-            const dy = startY - e.changedTouches[0].clientY;
-            if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 2) {
-                goTo(dx > 0 ? current + 1 : current - 1);
-            }
-        }, { passive: true });
+        // Recalcular posición al redimensionar
+        window.addEventListener('resize', () => {
+            requestAnimationFrame(() => { track.scrollLeft = scrollPosFor(total + current); });
+        });
 
-        goTo(0); // establece posición inicial centrada (y arranca el timer vía goTo→resetTimer)
+        // Posición inicial (primer slide original, sin animación)
+        requestAnimationFrame(() => {
+            track.scrollLeft = scrollPosFor(total);
+            resetTimer();
+        });
     })();
 
     // ── 5. COPIAR IBAN AL PORTAPAPELES ──────────────────────
