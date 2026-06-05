@@ -771,6 +771,81 @@
         }
 
         /* ══════════════════════════════
+           GALERÍA DESKTOP — cuenta atrás + 3 fotos
+        ══════════════════════════════ */
+        .galeria-header {
+            display: none;
+            background: var(--crema);
+            padding: 3.5rem 2rem 2rem;
+            justify-content: center;
+        }
+        .galeria-cd {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .galeria-cd-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.55rem;
+        }
+        .galeria-cd-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3.5rem, 5.5vw, 5.8rem);
+            font-weight: 300;
+            color: var(--verde-oscuro);
+            line-height: 1;
+        }
+        .galeria-cd-sep {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 4vw, 4.2rem);
+            color: var(--verde-oscuro);
+            line-height: 1;
+            opacity: 0.5;
+            padding-top: 0.15rem;
+        }
+        .galeria-cd-lbl {
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--texto-suave);
+        }
+
+        @media (min-width: 769px) {
+            .galeria-header { display: flex; }
+            #galeria { background: var(--crema); }
+            .carousel {
+                height: 500px;
+                background: var(--crema);
+            }
+            .carousel-slide {
+                min-width: calc(33.33% - 16px);
+                margin: 0 8px;
+                border-radius: 18px;
+                overflow: hidden;
+                background: var(--crema);
+                box-shadow: 0 4px 24px rgba(78, 115, 73, 0.13);
+            }
+            .carousel-slide img {
+                object-fit: cover;
+                object-position: center 30%;
+                border-radius: 18px;
+            }
+            .carousel-overlay  { display: none; }
+            .carousel-countdown { display: none; }
+            .carousel-dots { display: none; }
+            .carousel-btn {
+                background: rgba(255,255,255,0.95);
+                border: 1px solid var(--borde);
+                color: var(--texto-suave);
+                box-shadow: 0 2px 14px rgba(78,115,73,0.12);
+            }
+            .carousel-btn:hover { background: #ffffff; }
+        }
+
+        /* ══════════════════════════════
            MOBILE
         ══════════════════════════════ */
         @media (max-width: 768px) {
@@ -907,6 +982,32 @@
 
 <!-- ════════════════ GALERÍA + CUENTA ATRÁS ════════════════ -->
 <section id="galeria">
+
+    <!-- Cuenta atrás encima del carrusel (solo escritorio) -->
+    <div class="galeria-header">
+        <div class="galeria-cd">
+            <div class="galeria-cd-unit">
+                <span class="galeria-cd-num" data-cd="dias">--</span>
+                <span class="galeria-cd-lbl">Días</span>
+            </div>
+            <span class="galeria-cd-sep">:</span>
+            <div class="galeria-cd-unit">
+                <span class="galeria-cd-num" data-cd="horas">--</span>
+                <span class="galeria-cd-lbl">Horas</span>
+            </div>
+            <span class="galeria-cd-sep">:</span>
+            <div class="galeria-cd-unit">
+                <span class="galeria-cd-num" data-cd="minutos">--</span>
+                <span class="galeria-cd-lbl">Min</span>
+            </div>
+            <span class="galeria-cd-sep">:</span>
+            <div class="galeria-cd-unit">
+                <span class="galeria-cd-num" data-cd="segundos">--</span>
+                <span class="galeria-cd-lbl">Seg</span>
+            </div>
+        </div>
+    </div>
+
     <div class="carousel" id="carousel">
         <!-- Pista de fotos -->
         <div class="carousel-track" id="carouselTrack">
@@ -1111,6 +1212,11 @@
         document.getElementById('horas').textContent    = fmt(horas);
         document.getElementById('minutos').textContent  = fmt(minutos);
         document.getElementById('segundos').textContent = fmt(segundos);
+        // Actualizar también la cuenta atrás de escritorio
+        document.querySelectorAll('[data-cd="dias"]').forEach(el => el.textContent = fmt(dias));
+        document.querySelectorAll('[data-cd="horas"]').forEach(el => el.textContent = fmt(horas));
+        document.querySelectorAll('[data-cd="minutos"]').forEach(el => el.textContent = fmt(minutos));
+        document.querySelectorAll('[data-cd="segundos"]').forEach(el => el.textContent = fmt(segundos));
     }
 
     actualizarContador();
@@ -1140,13 +1246,26 @@
             dotsEl.appendChild(dot);
         });
 
+        function isDesktop() {
+            return window.matchMedia('(min-width: 769px)').matches;
+        }
+
         function goTo(n) {
-            current = (n + total) % total;
-            track.style.transform = `translateX(-${current * 100}%)`;
+            const max = isDesktop() ? Math.max(0, total - 3) : total - 1;
+            current = ((n % (max + 1)) + (max + 1)) % (max + 1);
+            const pct = isDesktop() ? 100 / 3 : 100;
+            track.style.transform = `translateX(-${current * pct}%)`;
             dotsEl.querySelectorAll('.carousel-dot').forEach((d, i) =>
                 d.classList.toggle('active', i === current));
             resetTimer();
         }
+
+        // Reset al cambiar de móvil a escritorio o viceversa
+        let wasDesktop = isDesktop();
+        window.addEventListener('resize', () => {
+            const nowDesktop = isDesktop();
+            if (nowDesktop !== wasDesktop) { wasDesktop = nowDesktop; goTo(0); }
+        });
 
         function resetTimer() {
             clearInterval(timer);
