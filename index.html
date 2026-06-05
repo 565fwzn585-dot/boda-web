@@ -8,7 +8,7 @@
     <!-- Fuentes elegantes de Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Marcellus&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 
     <style>
         /* ── Reset ── */
@@ -39,7 +39,8 @@
             color: var(--texto);
             background: var(--crema);
             font-weight: 300;
-            line-height: 1.7;
+            font-size: 1.05rem;
+            line-height: 1.75;
         }
 
         /* ══════════════════════════════
@@ -190,6 +191,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center 30%;
             display: block;
         }
         .carousel-overlay {
@@ -231,7 +233,7 @@
             min-width: 76px;
         }
         .cd-num {
-            font-family: var(--titulo);
+            font-family: 'Cormorant Garamond', serif;
             font-size: clamp(2rem, 3.2vw, 2.8rem);
             font-weight: 300;
             line-height: 1;
@@ -310,7 +312,7 @@
         /* ══════════════════════════════
            SECCIONES GENERALES
         ══════════════════════════════ */
-        section { padding: 6rem 2rem; }
+        section { padding: 4rem 2rem; }
 
         .container { max-width: 900px; margin: 0 auto; }
 
@@ -323,18 +325,18 @@
             margin-bottom: 0.8rem;
         }
         h2 {
-            font-family: var(--titulo);
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 300;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 400;
             color: var(--texto);
-            line-height: 1.15;
-            margin-bottom: 1.2rem;
+            line-height: 1.1;
+            margin-bottom: 1rem;
         }
-        h2 em { font-style: italic; color: var(--verde-oscuro); }
+        h2 em { font-style: italic; color: var(--verde-oscuro); font-weight: 400; }
 
         .divider {
             display: flex; align-items: center; gap: 1rem;
-            margin: 1.4rem 0 2rem;
+            margin: 0.8rem 0 1.4rem;
         }
         .divider::before,
         .divider::after { content: ''; flex: 1; height: 1px; background: var(--verde-pastel); }
@@ -348,8 +350,10 @@
         .historia-grid {
             max-width: 680px;
             margin: 0 auto;
+            text-align: center;
         }
         .historia-texto p {
+            text-align: left;
             margin-bottom: 1.2rem;
             color: var(--texto-medio);
         }
@@ -372,7 +376,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2.2rem;
-            margin-top: 3rem;
+            margin-top: 2rem;
             align-items: start;
         }
         /* Desktop: card1 y card2 en fila 1, ruta abajo spanning ambas columnas */
@@ -412,11 +416,11 @@
             margin-bottom: 1.2rem;
         }
         .lugar-nombre {
-            font-family: var(--titulo);
+            font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            font-size: 1.65rem;
+            font-size: 1.75rem;
             font-weight: 400;
-            line-height: 1.25;
+            line-height: 1.2;
             color: var(--texto);
             margin-bottom: 1.3rem;
             text-wrap: balance;
@@ -430,7 +434,7 @@
             display: block;
         }
         .lugar-hora {
-            font-family: var(--titulo);
+            font-family: 'Cormorant Garamond', serif;
             color: var(--terracota);
             font-size: 1rem;
             letter-spacing: 3px;
@@ -556,7 +560,7 @@
             border: 1px solid var(--borde);
             border-radius: 12px;
             padding: 1.1rem 2rem;
-            font-family: var(--titulo);
+            font-family: 'Cormorant Garamond', serif;
             font-size: 1.15rem;
             letter-spacing: 2px;
             color: var(--texto);
@@ -583,7 +587,7 @@
 
         .faq-list {
             max-width: 680px;
-            margin: 3rem auto 0;
+            margin: 2rem auto 0;
         }
         .faq-item {
             border-bottom: 1px solid var(--borde);
@@ -597,8 +601,8 @@
             background: none;
             border: none;
             padding: 1.3rem 0;
-            font-family: var(--titulo);
-            font-size: 1.05rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
             color: var(--texto);
             cursor: pointer;
             display: flex;
@@ -931,7 +935,7 @@
 <section id="rsvp">
     <div class="container">
         <div class="rsvp-wrap">
-            <span class="section-tag">Confirmación de asistencia</span>
+            <h2>Confirmación <em>de asistencia</em></h2>
             <div class="divider"><span>✦</span></div>
             <p>Rellenar un formulario por cada invitado. Muchas gracias!!</p>
 
@@ -1028,10 +1032,6 @@
             <div class="faq-item">
                 <button class="faq-pregunta">¿Dónde os vais de luna de miel? <span class="faq-icon">+</span></button>
                 <div class="faq-respuesta"><p>Nos vamos a Costa Rica. Mochila, coche y a dar vueltas por el país viendo animales y naturaleza.</p></div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-pregunta">¿Para cuándo el bebé? <span class="faq-icon">+</span></button>
-                <div class="faq-respuesta"><p>Si Dios quiere, cuando quiera.</p></div>
             </div>
             <div class="faq-item">
                 <button class="faq-pregunta">¿Estáis nerviosos? <span class="faq-icon">+</span></button>
@@ -1136,13 +1136,19 @@
         document.querySelector('.carousel-prev').addEventListener('click', () => goTo(current - 1));
         document.querySelector('.carousel-next').addEventListener('click', () => goTo(current + 1));
 
-        // Soporte swipe táctil
-        let startX = 0;
+        // Soporte swipe táctil — solo horizontal, no interfiere con scroll vertical
+        let startX = 0, startY = 0;
         const carousel = document.getElementById('carousel');
-        carousel.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+        carousel.addEventListener('touchstart', e => {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        }, { passive: true });
         carousel.addEventListener('touchend', e => {
-            const diff = startX - e.changedTouches[0].clientX;
-            if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+            const dx = startX - e.changedTouches[0].clientX;
+            const dy = startY - e.changedTouches[0].clientY;
+            if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 2) {
+                goTo(dx > 0 ? current + 1 : current - 1);
+            }
         }, { passive: true });
 
         resetTimer();
