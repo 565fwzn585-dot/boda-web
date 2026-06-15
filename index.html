@@ -801,6 +801,56 @@
             opacity: 0.38;
         }
 
+        /* ── Footer: fusión de nombres ── */
+        .footer-fusion {
+            position: relative;
+            height: 2.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.6rem;
+            overflow: hidden;
+        }
+        .fn-nombres {
+            position: absolute;
+            display: flex;
+            gap: 0.5rem;
+            font-family: 'Raleway', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 200;
+            letter-spacing: 4px;
+            color: var(--verde-claro);
+            animation: fn-nombres-anim 7s ease-in-out infinite;
+        }
+        .fn-queri { animation: fn-queri-anim 7s ease-in-out infinite; display: inline-block; }
+        .fn-edu   { animation: fn-edu-anim   7s ease-in-out infinite; display: inline-block; }
+        .fn-resultado {
+            position: absolute;
+            font-family: 'Raleway', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 200;
+            letter-spacing: 4px;
+            color: var(--verde-claro);
+            animation: fn-resultado-anim 7s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes fn-queri-anim {
+            0%, 30%  { transform: translateX(0);     opacity: 1; }
+            52%      { transform: translateX(18px);  opacity: 0; }
+            100%     { transform: translateX(0);     opacity: 0; }
+        }
+        @keyframes fn-edu-anim {
+            0%, 30%  { transform: translateX(0);     opacity: 1; }
+            52%      { transform: translateX(-18px); opacity: 0; }
+            100%     { transform: translateX(0);     opacity: 0; }
+        }
+        @keyframes fn-resultado-anim {
+            0%, 45%  { opacity: 0; }
+            60%, 82% { opacity: 1; }
+            95%, 100%{ opacity: 0; }
+        }
+
         /* ══════════════════════════════
            GALERÍA DESKTOP — cuenta atrás + 3 fotos
         ══════════════════════════════ */
@@ -1326,6 +1376,13 @@
 
 <!-- ════════════════ FOOTER ════════════════ -->
 <footer>
+    <div class="footer-fusion">
+        <div class="fn-nombres">
+            <span class="fn-queri">Queri</span>
+            <span class="fn-edu">Edu</span>
+        </div>
+        <span class="fn-resultado">Que duri</span>
+    </div>
     <div class="footer-date">11 · Octubre · 2026 · Canet de Mar</div>
 </footer>
 
