@@ -341,7 +341,42 @@
         /* ══════════════════════════════
            NUESTRA HISTORIA
         ══════════════════════════════ */
-        #historia { background: var(--blanco); }
+        #historia { background: var(--blanco); position: relative; overflow: hidden; }
+
+        /* ── Huellas animadas ── */
+        .huellas-anim {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .historia-grid { position: relative; z-index: 1; }
+        .huella {
+            position: absolute;
+            width: 30px;
+            height: auto;
+            mix-blend-mode: multiply;
+            opacity: 0;
+            animation: aparece-huella 9.6s ease-in-out infinite;
+        }
+        .huella.izq { transform: scaleX(-1); }
+        @keyframes aparece-huella {
+            0%, 8%   { opacity: 0; }
+            14%, 26% { opacity: 0.45; }
+            38%      { opacity: 0; }
+            100%     { opacity: 0; }
+        }
+        /* Senda de huellas de izq a dcha, dos filas alternas */
+        .h1  { bottom: 18%; left:  5%; animation-delay: 0s; }
+        .h2  { bottom: 30%; left: 13%; animation-delay: 1.2s; }
+        .h3  { bottom: 16%; left: 22%; animation-delay: 2.4s; }
+        .h4  { bottom: 28%; left: 31%; animation-delay: 3.6s; }
+        .h5  { bottom: 14%; left: 42%; animation-delay: 4.8s; }
+        .h6  { bottom: 26%; left: 52%; animation-delay: 6.0s; }
+        .h7  { bottom: 12%; left: 63%; animation-delay: 7.2s; }
+        .h8  { bottom: 24%; left: 73%; animation-delay: 8.4s; }
+        .h9  { top: 20%; right: 18%; animation-delay: 0.6s; }
+        .h10 { top: 32%; right:  8%; animation-delay: 1.8s; }
 
         .historia-grid {
             max-width: 680px;
@@ -1051,6 +1086,18 @@
 
 <!-- ════════════════ HISTORIA ════════════════ -->
 <section id="historia">
+    <div class="huellas-anim" aria-hidden="true">
+        <img class="huella h1"     src="fotos/huellas.png" alt="">
+        <img class="huella h2 izq" src="fotos/huellas.png" alt="">
+        <img class="huella h3"     src="fotos/huellas.png" alt="">
+        <img class="huella h4 izq" src="fotos/huellas.png" alt="">
+        <img class="huella h5"     src="fotos/huellas.png" alt="">
+        <img class="huella h6 izq" src="fotos/huellas.png" alt="">
+        <img class="huella h7"     src="fotos/huellas.png" alt="">
+        <img class="huella h8 izq" src="fotos/huellas.png" alt="">
+        <img class="huella h9"     src="fotos/huellas.png" alt="">
+        <img class="huella h10 izq" src="fotos/huellas.png" alt="">
+    </div>
     <div class="container">
         <div class="historia-grid">
             <div class="historia-texto">
