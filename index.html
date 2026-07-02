@@ -189,6 +189,7 @@
         .carousel-slide {
             min-width: 76%;
             scroll-snap-align: center;
+            scroll-snap-stop: always;
             margin: 0 8px;
             height: 100%;
             overflow: hidden;
@@ -885,7 +886,7 @@
                 border-radius: 18px;
             }
             .carousel-dots { display: none; }
-            .carousel-slide { scroll-snap-align: start; }
+            .carousel-slide { scroll-snap-align: start; scroll-snap-stop: always; }
         }
 
         /* ══════════════════════════════
