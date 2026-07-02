@@ -1406,23 +1406,18 @@
         });
     });
 
-    // ── 3. CARRUSEL (scroll infinito) ────────────────────
+    // ── 3. CARRUSEL ───────────────────────────────────────
     (function () {
         const track  = document.getElementById('carouselTrack');
         const dotsEl = document.getElementById('carouselDots');
-        const origSlides = Array.from(track.querySelectorAll('.carousel-slide'));
-        const total  = origSlides.length;
+        const slides = Array.from(track.querySelectorAll('.carousel-slide'));
+        const total  = slides.length;
         let current  = 0;
 
         if (total === 0) return;
 
-        // Clonar slides al inicio y al final para efecto infinito
-        origSlides.forEach(s => track.appendChild(s.cloneNode(true)));
-        origSlides.forEach(s => track.insertBefore(s.cloneNode(true), track.firstChild));
-        const all = Array.from(track.querySelectorAll('.carousel-slide'));
-
-        // Crear puntos indicadores (solo slides originales)
-        origSlides.forEach((_, i) => {
+        // Puntos indicadores
+        slides.forEach((_, i) => {
             const dot = document.createElement('button');
             dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
             dot.setAttribute('aria-label', 'Foto ' + (i + 1));
@@ -1433,23 +1428,22 @@
         function isDesktop() { return window.matchMedia('(min-width: 769px)').matches; }
 
         function getSlot() {
-            const s = all[0];
+            const s = slides[0];
             const cs = getComputedStyle(s);
             return s.offsetWidth + parseFloat(cs.marginLeft) + parseFloat(cs.marginRight);
         }
 
-        // Posición de scroll para centrar (móvil) o alinear a la izquierda (escritorio) un slide por índice
         function scrollPosFor(idx) {
             const slot = getSlot();
-            const s = all[0];
+            const s = slides[0];
             const mL = parseFloat(getComputedStyle(s).marginLeft);
             if (isDesktop()) return idx * slot;
             return Math.max(0, idx * slot + mL - (track.clientWidth - s.offsetWidth) / 2);
         }
 
-        function goTo(n, smooth = true) {
-            current = ((n % total) + total) % total;
-            track.scrollTo({ left: scrollPosFor(total + current), behavior: smooth ? 'smooth' : 'instant' });
+        function goTo(n) {
+            current = Math.max(0, Math.min(n, total - 1));
+            track.scrollTo({ left: scrollPosFor(current), behavior: 'smooth' });
             updateDots();
         }
 
@@ -1458,25 +1452,14 @@
                 d.classList.toggle('active', i === current));
         }
 
-        // Detectar cuándo el scroll llega a los clones y saltar sin animación
         function onScrollEnd() {
             const slot = getSlot();
-            const s = all[0];
+            const s = slides[0];
             const mL = parseFloat(getComputedStyle(s).marginLeft);
             let idx = isDesktop()
                 ? Math.round(track.scrollLeft / slot)
                 : Math.round((track.scrollLeft - mL + (track.clientWidth - s.offsetWidth) / 2) / slot);
-            idx = Math.max(0, Math.min(idx, all.length - 1));
-
-            if (idx < total) {
-                track.scrollLeft = scrollPosFor(idx + total);
-                current = idx;
-            } else if (idx >= 2 * total) {
-                track.scrollLeft = scrollPosFor(idx - total);
-                current = idx - 2 * total;
-            } else {
-                current = idx - total;
-            }
+            current = Math.max(0, Math.min(idx, total - 1));
             updateDots();
         }
 
@@ -1490,15 +1473,11 @@
         document.querySelector('.carousel-prev').addEventListener('click', () => goTo(current - 1));
         document.querySelector('.carousel-next').addEventListener('click', () => goTo(current + 1));
 
-        // Recalcular posición al redimensionar
         window.addEventListener('resize', () => {
-            requestAnimationFrame(() => { track.scrollLeft = scrollPosFor(total + current); });
+            requestAnimationFrame(() => { track.scrollLeft = scrollPosFor(current); });
         });
 
-        // Posición inicial (primer slide original, sin animación)
-        requestAnimationFrame(() => {
-            track.scrollLeft = scrollPosFor(total);
-        });
+        requestAnimationFrame(() => { track.scrollLeft = 0; });
     })();
 
     // ── 5. COPIAR IBAN AL PORTAPAPELES ──────────────────────
