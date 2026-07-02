@@ -341,37 +341,7 @@
         /* ══════════════════════════════
            NUESTRA HISTORIA
         ══════════════════════════════ */
-        #historia { background: var(--blanco); position: relative; overflow: hidden; }
-
-        /* ── Huellas animadas ── */
-        .huellas-anim {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .historia-grid { position: relative; z-index: 1; }
-        .huella {
-            position: absolute;
-            width: 30px;
-            height: auto;
-            mix-blend-mode: multiply;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            transform: rotate(90deg);
-        }
-        .huella.izq { transform: rotate(90deg) scaleX(-1); }
-        /* Senda de huellas de izq a dcha, zigzag */
-        .h1  { bottom: 18%; left:  5%; }
-        .h2  { bottom: 30%; left: 13%; }
-        .h3  { bottom: 16%; left: 22%; }
-        .h4  { bottom: 28%; left: 31%; }
-        .h5  { bottom: 14%; left: 42%; }
-        .h6  { bottom: 26%; left: 52%; }
-        .h7  { bottom: 12%; left: 63%; }
-        .h8  { bottom: 24%; left: 73%; }
-        .h9  { bottom: 10%; left: 84%; }
-        .h10 { bottom: 22%; left: 92%; }
+        #historia { background: var(--blanco); }
 
         .historia-grid {
             max-width: 680px;
@@ -1131,18 +1101,6 @@
 
 <!-- ════════════════ HISTORIA ════════════════ -->
 <section id="historia">
-    <div class="huellas-anim" aria-hidden="true">
-        <img class="huella h1"     src="fotos/huellas.png" alt="">
-        <img class="huella h2 izq" src="fotos/huellas.png" alt="">
-        <img class="huella h3"     src="fotos/huellas.png" alt="">
-        <img class="huella h4 izq" src="fotos/huellas.png" alt="">
-        <img class="huella h5"     src="fotos/huellas.png" alt="">
-        <img class="huella h6 izq" src="fotos/huellas.png" alt="">
-        <img class="huella h7"     src="fotos/huellas.png" alt="">
-        <img class="huella h8 izq" src="fotos/huellas.png" alt="">
-        <img class="huella h9"     src="fotos/huellas.png" alt="">
-        <img class="huella h10 izq" src="fotos/huellas.png" alt="">
-    </div>
     <div class="container">
         <div class="historia-grid">
             <div class="historia-texto">
@@ -1194,16 +1152,21 @@
             <div class="carousel-slide"><img src="fotos/foto1.jpg" alt="Queralt y Edu"></div>
             <div class="carousel-slide"><img src="fotos/foto4.jpg" alt="Queralt y Edu"></div>
             <div class="carousel-slide"><img src="fotos/foto5.jpg" alt="Queralt y Edu"></div>
-            <div class="carousel-slide"><img src="fotos/foto6.jpg" alt="Queralt y Edu"></div>
             <div class="carousel-slide"><img src="fotos/foto7.jpg" alt="Queralt y Edu"></div>
             <div class="carousel-slide"><img src="fotos/foto8.jpg" alt="Queralt y Edu"></div>
             <div class="carousel-slide"><img src="fotos/foto2.jpg" alt="Queralt y Edu"></div>
             <div class="carousel-slide"><img src="fotos/foto9.jpg" alt="Queralt y Edu"></div>
-            <div class="carousel-slide"><img src="fotos/foto11.jpg" alt="Queralt y Edu"></div>
+            <div class="carousel-slide"><img src="fotos/foto11.jpg" alt="Queralt y Edu" style="object-position: center 20%;"></div>
             <div class="carousel-slide"><img src="fotos/foto12.jpg" alt="Queralt y Edu"></div>
             <div class="carousel-slide"><img src="fotos/foto13.jpg" alt="Queralt y Edu"></div>
             <div class="carousel-slide"><img src="fotos/foto14.jpg" alt="Queralt y Edu"></div>
-            <div class="carousel-slide"><img src="fotos/foto15.jpg" alt="Queralt y Edu"></div>
+            <div class="carousel-slide"><img src="fotos/foto16.jpg" alt="Queralt y Edu"></div>
+            <div class="carousel-slide"><img src="fotos/foto17.jpg" alt="Queralt y Edu"></div>
+            <div class="carousel-slide"><img src="fotos/foto18.jpg" alt="Queralt y Edu"></div>
+            <div class="carousel-slide"><img src="fotos/foto19.jpg" alt="Queralt y Edu"></div>
+            <div class="carousel-slide"><img src="fotos/foto20.jpg" alt="Queralt y Edu"></div>
+            <div class="carousel-slide"><img src="fotos/foto21.jpg" alt="Queralt y Edu"></div>
+            <div class="carousel-slide"><img src="fotos/foto22.jpg" alt="Queralt y Edu"></div>
         </div>
 
         <!-- Gradiente de oscurecimiento -->
@@ -1667,33 +1630,6 @@
             if (!isOpen) item.classList.add('open');
         });
     });
-
-    // ── HUELLAS — pasos secuenciales ─────────────────────────
-    (function () {
-        const huellas = Array.from(document.querySelectorAll('.huella'));
-        if (!huellas.length) return;
-
-        const STEP  = 850;   // ms entre paso y paso
-        const HOLD  = 3000;  // ms con todas las huellas visibles
-        const FADE  = 1200;  // ms que tarda en desvanecerse (ver transition CSS)
-        const PAUSE = 1500;  // ms de pausa antes de repetir
-
-        function cycle() {
-            // Cada huella aparece una tras otra
-            huellas.forEach((h, i) => {
-                setTimeout(() => { h.style.opacity = '0.5'; }, i * STEP);
-            });
-            // Cuando el último paso ha aparecido + HOLD, todas desaparecen
-            const showDone = (huellas.length - 1) * STEP + HOLD;
-            setTimeout(() => {
-                huellas.forEach(h => { h.style.opacity = '0'; });
-                // Siguiente ciclo tras el desvanecido + pausa
-                setTimeout(cycle, FADE + PAUSE);
-            }, showDone);
-        }
-
-        setTimeout(cycle, 1000); // arranque inicial con pequeña espera
-    })();
 
     // ── 7. ENVÍO DEL FORMULARIO RSVP → Google Forms ──────────
     const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScnNJzfFtFVUVRBub-xIyh8sgni13p1bsjxR9pLVDdBvrtWDw/formResponse';
