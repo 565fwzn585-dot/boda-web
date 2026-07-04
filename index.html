@@ -182,6 +182,8 @@
             opacity: 0.75;
             margin-top: 0.4rem;
         }
+        .hero-br { display: none; }
+        @media (max-width: 768px) { .hero-br { display: block; } }
 
         /* ══════════════════════════════
            CARRUSEL + CUENTA ATRÁS
@@ -1059,9 +1061,8 @@
     <div class="hero-inner">
         <h1>Queralt <span class="amp">&amp;</span> Edu</h1>
         <p class="hero-fecha">11 · Octubre · 2026</p>
-        <p class="hero-cita">
-            «No tengáis miedo del matrimonio y de formar una familia»
-            <span>Papa León XIV</span>
+        <p class="hero-cita" data-i18n-html="hero-cita">
+            «No tengáis miedo del matrimonio<br class="hero-br"> y de formar una familia»<span>Papa León XIV</span>
         </p>
     </div>
 </section>
@@ -1132,9 +1133,10 @@
                 <h2 data-i18n-html="historia-h2"><em>Lo más importante</em></h2>
                 <div class="divider"><span>✦</span></div>
 
-                <p data-i18n="historia-p1">Está siendo muy fácil distraernos. Entre la música, los menús, Capitán Tekifresa (no habrá), los "detallitos" y todo lo que envuelve ese día, nos es fácil perder el foco.</p>
-                <p data-i18n="historia-p2">Queremos que el día no pierda de vista lo que realmente es: la decisión más importante de nuestra vida. Prometernos que vamos a caminar juntos, elegirnos cada día y buscar el bien del otro incluso cuando no sea lo más fácil.</p>
-                <p data-i18n="historia-p3">Nos hace mucha ilusión que vosotros seáis los primeros testigos y que lo celebremos, juntos, por todo lo alto.</p>
+                <p data-i18n="historia-p1">Está siendo muy fácil distraernos. Entre la música, los menús, Capitán Tekifresa (no habrá), el DJ y todo lo que envuelve ese día, es fácil perder el foco.</p>
+                <p data-i18n="historia-p2">Queremos que el día no pierda de vista lo que realmente es. Delante de Dios vamos a prometernos que queremos compartir toda una vida, cuidarnos, y construir un hogar donde aprender a querernos un poco mejor cada día.</p>
+                <p data-i18n="historia-p3">Todo lo demás será para celebrar precisamente eso que acabará de ocurrir.</p>
+                <p data-i18n="historia-p4">Y nos hace muchísima ilusión que vosotros seáis los primeros testigos de ese "sí" y poder celebrarlo juntos por todo lo alto.</p>
             </div>
 
         </div>
@@ -1523,10 +1525,12 @@
             'convite-badge':'Convite','convite-hora':'Hasta las 23:30h aprox.',
             'convite-desc':'Una masía en lo alto del Vallès con vistas increíbles.',
             'mapa-text':'Ver en el mapa',
+            'hero-cita':'«No tengáis miedo del matrimonio<br class="hero-br"> y de formar una familia»<span>Papa León XIV</span>',
             'historia-h2':'<em>Lo más importante</em>',
-            'historia-p1':'Está siendo muy fácil distraernos. Entre la música, los menús, Capitán Tekifresa (no habrá), los "detallitos" y todo lo que envuelve ese día, nos es fácil perder el foco.',
-            'historia-p2':'Queremos que el día no pierda de vista lo que realmente es: la decisión más importante de nuestra vida. Prometernos que vamos a caminar juntos, elegirnos cada día y buscar el bien del otro incluso cuando no sea lo más fácil.',
-            'historia-p3':'Nos hace mucha ilusión que vosotros seáis los primeros testigos y que lo celebremos, juntos, por todo lo alto.',
+            'historia-p1':'Está siendo muy fácil distraernos. Entre la música, los menús, Capitán Tekifresa (no habrá), el DJ y todo lo que envuelve ese día, es fácil perder el foco.',
+            'historia-p2':'Queremos que el día no pierda de vista lo que realmente es. Delante de Dios vamos a prometernos que queremos compartir toda una vida, cuidarnos, y construir un hogar donde aprender a querernos un poco mejor cada día.',
+            'historia-p3':'Todo lo demás será para celebrar precisamente eso que acabará de ocurrir.',
+            'historia-p4':'Y nos hace muchísima ilusión que vosotros seáis los primeros testigos de ese "sí" y poder celebrarlo juntos por todo lo alto.',
             'cd-dias':'Días','cd-horas':'Horas','cd-minutos':'Min','cd-segundos':'Seg',
             'rsvp-h2':'Confirmación <em>de asistencia</em>',
             'rsvp-intro':'Rellenar un formulario por cada invitado. Muchas gracias!!',
@@ -1563,10 +1567,12 @@
             'convite-badge':'Convit','convite-hora':'Fins a les 23:30h aprox.',
             'convite-desc':'Una masia al cim del Vallès amb vistes increïbles.',
             'mapa-text':'Veure al mapa',
+            'hero-cita':'«No tingueu por del matrimoni<br class="hero-br"> i de formar una família»<span>Papa Lleó XIV</span>',
             'historia-h2':'<em>El més important</em>',
-            'historia-p1':"Ens és molt fàcil distreure'ns. Entre la música, els menús, el Capità Tekifresa (que no hi serà), els \"detallitos\" i tot el que envolta aquell dia, ens és fàcil perdre el focus.",
-            'historia-p2':"Volem que el dia no perdi de vista el que realment és: la decisió més important de la nostra vida. Prometre'ns que caminarem junts, escollir-nos cada dia i buscar el bé de l'altre fins i tot quan no sigui el més fàcil.",
-            'historia-p3':"Ens fa molta il·lusió que vosaltres sigueu els primers testimonis i que ho celebrem, junts, per tot l'alt.",
+            'historia-p1':"Està sent molt fàcil distreure'ns. Entre la música, els menús, Capità Tekifresa (no hi haurà), el DJ i tot el que envolta aquest dia, és fàcil perdre el focus.",
+            'historia-p2':"Volem que el dia no perdi de vista el que realment és. Davant de Déu ens prometrem que volem compartir tota una vida, cuidar-nos, i construir una llar on aprendre a estimar-nos una mica millor cada dia.",
+            'historia-p3':"Tota la resta serà per a celebrar precisament això que acabarà d'ocórrer.",
+            'historia-p4':"I ens fa moltíssima il·lusió que vosaltres sigueu els primers testimonis d'aquest \"sí\" i poder celebrar-ho tots junts.",
             'cd-dias':'Dies','cd-horas':'Hores','cd-minutos':'Min','cd-segundos':'Seg',
             'rsvp-h2':"Confirmació <em>d'assistència</em>",
             'rsvp-intro':'Omplir un formulari per cada convidat. Moltes gràcies!!',
