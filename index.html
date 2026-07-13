@@ -779,6 +779,31 @@
         }
 
         /* ══════════════════════════════
+           AGRADECIMIENTO EN PÁGINA
+        ══════════════════════════════ */
+        #rsvp-gracias {
+            padding: 5rem 2rem 4rem;
+            text-align: center;
+            background: var(--crema);
+        }
+        #rsvp-gracias .success-emoji {
+            display: block;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            line-height: 1;
+        }
+        #rsvp-gracias p {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 300;
+            font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+            color: var(--texto-medio);
+            line-height: 1.8;
+            max-width: 500px;
+            margin: 0 auto 2rem;
+            letter-spacing: 0.2px;
+        }
+
+        /* ══════════════════════════════
            FOOTER
         ══════════════════════════════ */
         footer {
@@ -1839,9 +1864,10 @@
             const gracias = document.getElementById('rsvp-gracias');
             gracias.style.display = 'block';
             setTimeout(() => {
-                const navH = document.getElementById('navbar').offsetHeight;
-                const top = gracias.getBoundingClientRect().top + window.scrollY - navH - 24;
-                window.scrollTo({ top, behavior: 'smooth' });
+                // Scroll para que el h2 de regalo quede justo en el borde inferior
+                const regaloh2 = document.querySelector('#regalo h2');
+                const top = regaloh2.getBoundingClientRect().bottom + window.scrollY - window.innerHeight + 16;
+                window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
             }, 80);
 
         } catch {
