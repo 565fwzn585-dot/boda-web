@@ -1415,6 +1415,16 @@
     </div>
 </div>
 
+<!-- Mensaje de agradecimiento en página (visible tras enviar el formulario) -->
+<div id="rsvp-gracias" style="display:none">
+    <div class="container">
+        <div class="rsvp-wrap">
+            <span class="success-emoji">🥂</span>
+            <p data-i18n="success-p">Muchas gracias por confirmar tu asistencia o tu ausencia. Tenemos muchas ganas de verte o te echaremos de menos.</p>
+        </div>
+    </div>
+</div>
+
 <!-- ════════════════ REGALO ════════════════ -->
 <section id="regalo">
     <div class="container">
@@ -1792,9 +1802,17 @@
                 body:   new FormData(form)
             });
 
-            // Mostramos éxito dentro del modal
-            form.style.display = 'none';
-            document.getElementById('success-msg').style.display = 'block';
+            // Cerramos el modal, ocultamos el FAB y mostramos el agradecimiento en la página
+            document.getElementById('rsvpModal').classList.remove('open');
+            document.body.style.overflow = '';
+            document.getElementById('rsvpFab').style.display = 'none';
+            const gracias = document.getElementById('rsvp-gracias');
+            gracias.style.display = 'block';
+            setTimeout(() => {
+                const navH = document.getElementById('navbar').offsetHeight;
+                const top = gracias.getBoundingClientRect().top + window.scrollY - navH - 24;
+                window.scrollTo({ top, behavior: 'smooth' });
+            }, 80);
 
         } catch {
             alert('Hubo un problema de red. ¡Inténtalo de nuevo!');
