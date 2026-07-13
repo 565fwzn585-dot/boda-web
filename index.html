@@ -1429,6 +1429,7 @@
         <div class="rsvp-wrap">
             <span class="success-emoji">🥂</span>
             <p data-i18n="success-p">Muchas gracias por confirmar tu asistencia o tu ausencia. Tenemos muchas ganas de verte o te echaremos de menos.</p>
+            <button id="rsvp-otro" class="btn-submit" style="margin-top:1.5rem" data-i18n="btn-otro">Rellenar otro formulario</button>
         </div>
     </div>
 </div>
@@ -1641,6 +1642,7 @@
     const LANG = {
         es: {
             'fab-text':'Confirmar<br>asistencia<br>aquí',
+            'btn-otro':'Rellenar otro formulario',
             'nav-dia':'El día','nav-importante':'Importante','nav-regalo':'Regalo',
             'evento-h2':'Dónde y cuándo',
             'ceremonia-badge':'Ceremonia',
@@ -1684,6 +1686,7 @@
         },
         ca: {
             'fab-text':'Confirmar<br>assistència<br>aquí',
+            'btn-otro':'Omplir un altre formulari',
             'nav-dia':'El dia','nav-importante':'Important','nav-regalo':'Regal',
             'evento-h2':'On i quan',
             'ceremonia-badge':'Cerimònia',
@@ -1778,6 +1781,16 @@
         // El link "Confirmar" del nav también abre el modal
         document.querySelectorAll('a[href="#rsvp"]').forEach(a => {
             a.addEventListener('click', e => { e.preventDefault(); openModal(); });
+        });
+
+        // Botón "Rellenar otro formulario"
+        document.getElementById('rsvp-otro').addEventListener('click', () => {
+            document.getElementById('rsvp-gracias').style.display = 'none';
+            document.getElementById('rsvp-form').reset();
+            document.getElementById('rsvp-form').style.display = '';
+            document.getElementById('success-msg').style.display = 'none';
+            fab.style.display = '';
+            openModal();
         });
 
         // Mostrar el FAB cuando la sección de regalo entra en pantalla
