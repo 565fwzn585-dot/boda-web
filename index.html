@@ -1792,6 +1792,9 @@
         function openModal() {
             modal.classList.add('open');
             document.body.style.overflow = 'hidden';
+            // Aseguramos que el botón siempre esté activo al abrir el modal
+            const btn = document.querySelector('#rsvp-form .btn-submit');
+            if (btn) { btn.disabled = false; btn.dataset.i18n && (btn.textContent = LANG[currentLang]['btn-submit'] || btn.textContent); }
         }
         function closeModal() {
             modal.classList.remove('open');
@@ -1811,8 +1814,9 @@
         // Botón "Rellenar otro formulario"
         document.getElementById('rsvp-otro').addEventListener('click', () => {
             document.getElementById('rsvp-gracias').style.display = 'none';
-            document.getElementById('rsvp-form').reset();
-            document.getElementById('rsvp-form').style.display = '';
+            const f = document.getElementById('rsvp-form');
+            f.reset();
+            f.style.display = '';
             document.getElementById('success-msg').style.display = 'none';
             fab.style.display = '';
             openModal();
@@ -1870,9 +1874,9 @@
                 window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
             }, 80);
 
-        } catch {
+        } catch (err) {
             alert('Hubo un problema de red. ¡Inténtalo de nuevo!');
-            btn.textContent = 'Enviar confirmación';
+            btn.textContent = LANG[currentLang]['btn-submit'] || 'Enviar confirmación';
             btn.disabled = false;
         }
     });
