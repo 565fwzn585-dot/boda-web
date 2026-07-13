@@ -912,6 +912,104 @@
         }
 
         /* ══════════════════════════════
+           FAB + MODAL RSVP
+        ══════════════════════════════ */
+        .rsvp-fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 200;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: var(--verde-oscuro);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.6rem;
+            font-weight: 500;
+            letter-spacing: 0.8px;
+            line-height: 1.5;
+            text-align: center;
+            text-transform: uppercase;
+            padding: 0.5rem;
+            box-shadow: 0 4px 20px rgba(78,115,73,0.45);
+            transition: transform 0.2s, box-shadow 0.2s;
+            animation: fab-pulse 3.5s ease-in-out infinite;
+        }
+        .rsvp-fab:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 28px rgba(78,115,73,0.65);
+            animation: none;
+        }
+        @keyframes fab-pulse {
+            0%, 100% { box-shadow: 0 4px 20px rgba(78,115,73,0.45); }
+            55% { box-shadow: 0 4px 28px rgba(78,115,73,0.7), 0 0 0 10px rgba(78,115,73,0.1); }
+        }
+        .rsvp-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 300;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s;
+        }
+        .rsvp-modal.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .rsvp-modal-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(20,28,22,0.55);
+            backdrop-filter: blur(5px);
+        }
+        .rsvp-modal-card {
+            position: relative;
+            background: var(--crema);
+            border-radius: 22px;
+            max-width: 560px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2.5rem 2rem 2rem;
+            box-shadow: 0 24px 80px rgba(20,28,22,0.25);
+            transform: translateY(28px);
+            transition: transform 0.28s cubic-bezier(0.33,1,0.68,1);
+            scrollbar-width: thin;
+            scrollbar-color: var(--verde-sage) transparent;
+        }
+        .rsvp-modal.open .rsvp-modal-card { transform: translateY(0); }
+        .rsvp-modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: none;
+            background: var(--verde-claro);
+            color: var(--verde-oscuro);
+            font-size: 1.3rem;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .rsvp-modal-close:hover { background: var(--verde-pastel); }
+        @media (max-width: 768px) {
+            .rsvp-fab { bottom: 1.2rem; right: 1.2rem; width: 80px; height: 80px; }
+            .rsvp-modal-card { padding: 2rem 1.2rem 1.5rem; border-radius: 18px; }
+        }
+
+        /* ══════════════════════════════
            IDIOMA TOGGLE
         ══════════════════════════════ */
         .lang-toggle {
@@ -1230,11 +1328,17 @@
     </div>
 </section>
 
-<!-- ════════════════ RSVP ════════════════ -->
-<section id="rsvp">
-    <div class="container">
+<!-- ════════════════ RSVP FAB + MODAL ════════════════ -->
+<button class="rsvp-fab" id="rsvpFab" aria-label="Confirmar asistencia">
+    <span data-i18n-html="fab-text">Confirmar<br>asistencia<br>aquí</span>
+</button>
+
+<div class="rsvp-modal" id="rsvpModal" role="dialog" aria-modal="true" aria-labelledby="rsvpModalTitle">
+    <div class="rsvp-modal-overlay" id="rsvpOverlay"></div>
+    <div class="rsvp-modal-card">
+        <button class="rsvp-modal-close" id="rsvpClose" aria-label="Cerrar">×</button>
         <div class="rsvp-wrap">
-            <h2 data-i18n-html="rsvp-h2">Confirmación <em>de asistencia</em></h2>
+            <h2 id="rsvpModalTitle" data-i18n-html="rsvp-h2">Confirmación <em>de asistencia</em></h2>
             <div class="divider"><span>✦</span></div>
             <p data-i18n="rsvp-intro">Rellenar un formulario por cada invitado. Muchas gracias!!</p>
 
@@ -1309,7 +1413,7 @@
             </div>
         </div>
     </div>
-</section>
+</div>
 
 <!-- ════════════════ REGALO ════════════════ -->
 <section id="regalo">
@@ -1518,6 +1622,7 @@
     // ── 8. IDIOMA (ES / CA) ──────────────────────────────────
     const LANG = {
         es: {
+            'fab-text':'Confirmar<br>asistencia<br>aquí',
             'nav-dia':'El día','nav-importante':'Importante','nav-regalo':'Regalo',
             'evento-h2':'Dónde y cuándo',
             'ceremonia-badge':'Ceremonia',
@@ -1560,6 +1665,7 @@
             'faq-q5':'¿Os casáis un domingo?','faq-a5':'Así es, el lunes es fiesta. Valdrá como misa de domingo.',
         },
         ca: {
+            'fab-text':'Confirmar<br>assistència<br>aquí',
             'nav-dia':'El dia','nav-importante':'Important','nav-regalo':'Regal',
             'evento-h2':'On i quan',
             'ceremonia-badge':'Cerimònia',
@@ -1630,7 +1736,34 @@
 
     applyLang(currentLang);
 
-    // ── 6. ACORDEÓN FAQ ──────────────────────────────────────
+    // ── 6. MODAL RSVP ────────────────────────────────────────
+    (function () {
+        const modal   = document.getElementById('rsvpModal');
+        const fab     = document.getElementById('rsvpFab');
+        const overlay = document.getElementById('rsvpOverlay');
+        const closeBtn= document.getElementById('rsvpClose');
+
+        function openModal() {
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            modal.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        fab.addEventListener('click', openModal);
+        overlay.addEventListener('click', closeModal);
+        closeBtn.addEventListener('click', closeModal);
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+        // El link "Confirmar" del nav también abre el modal
+        document.querySelectorAll('a[href="#rsvp"]').forEach(a => {
+            a.addEventListener('click', e => { e.preventDefault(); openModal(); });
+        });
+    })();
+
+    // ── 7. ACORDEÓN FAQ ──────────────────────────────────────
     document.querySelectorAll('.faq-pregunta').forEach(btn => {
         btn.addEventListener('click', () => {
             const item = btn.parentElement;
@@ -1659,15 +1792,9 @@
                 body:   new FormData(form)
             });
 
-            // Mostramos éxito y hacemos scroll para ver el agradecimiento + sección de regalo
+            // Mostramos éxito dentro del modal
             form.style.display = 'none';
-            const successEl = document.getElementById('success-msg');
-            successEl.style.display = 'block';
-            setTimeout(() => {
-                const navH = document.getElementById('navbar').offsetHeight;
-                const top = successEl.getBoundingClientRect().top + window.scrollY - navH - 24;
-                window.scrollTo({ top, behavior: 'smooth' });
-            }, 80);
+            document.getElementById('success-msg').style.display = 'block';
 
         } catch {
             alert('Hubo un problema de red. ¡Inténtalo de nuevo!');
